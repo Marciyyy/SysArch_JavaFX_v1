@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dds.demo.sysarch_javafx_v1.LogInController">
+   <children>
+      <Button fx:id="LogInUserButton" layoutX="232.0" layoutY="122.0" mnemonicParsing="false" onAction="#LogInUserButtonClick" prefHeight="73.0" prefWidth="135.0" text="Elevator User" AnchorPane.leftAnchor="232.0" AnchorPane.topAnchor="122.0" />
+      <Button fx:id="LogInConfirmButton" layoutX="224.0" layoutY="322.0" mnemonicParsing="false" onAction="#LogInConfirmButtonClick" prefHeight="26.0" prefWidth="150.0" text="Confirm LogIn" AnchorPane.leftAnchor="224.0" AnchorPane.topAnchor="322.0" />
+      <Label fx:id="LogInHeaderTextField" layoutX="195.0" layoutY="31.0" prefHeight="91.0" prefWidth="209.0" text="Elevator HMI LogIn" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="LogInUsernameTextField" layoutX="120.0" layoutY="264.0" promptText="Username" />
+      <PasswordField fx:id="LogInPasswordField" layoutX="329.0" layoutY="264.0" onAction="#LogInConfirmButtonClick" prefHeight="26.0" prefWidth="150.0" promptText="Password">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </PasswordField>
+      <Label fx:id="LogInErrorTextBox" layoutX="201.0" layoutY="297.0" prefHeight="18.0" prefWidth="198.0" textFill="#f21111" />
+   </children>
+</AnchorPane>

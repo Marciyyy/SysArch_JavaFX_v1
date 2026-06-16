@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="616.0" prefWidth="887.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dds.demo.sysarch_javafx_v1.UserController">
+   <children>
+      <Button fx:id="UserReturnToLogInButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#UserReturnToLoginButtonClick" text="Return to LogIn" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+      <AnchorPane layoutX="42.6" layoutY="76.8" prefHeight="316.0" prefWidth="272.0" style="-fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: white;" AnchorPane.leftAnchor="42.6" AnchorPane.topAnchor="76.8">
+         <children>
+            <Button fx:id="UserCabinStock1" layoutX="67.0" layoutY="78.0" mnemonicParsing="false" onAction="#UserCabinStock1Click" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="1" />
+            <Button fx:id="UserCabinStock2" layoutX="165.0" layoutY="78.0" mnemonicParsing="false" onAction="#UserCabinStock2Click" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="2" />
+            <Button fx:id="UserCabinStock3" layoutX="67.0" layoutY="139.0" mnemonicParsing="false" onAction="#UserCabinStock3Click" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="3" />
+            <Button fx:id="UserCabinStock4" layoutX="165.0" layoutY="139.0" mnemonicParsing="false" onAction="#UserCabinStock4Click" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="4" />
+            <Button fx:id="UserCabinOpen" layoutX="67.0" layoutY="200.0" mnemonicParsing="false" onAction="#UserCabinOpenClick" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="&lt;|&gt;" />
+            <Button fx:id="UserCabinClose" layoutX="165.0" layoutY="200.0" mnemonicParsing="false" onAction="#UserCabinCloseClick" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="&gt;|&lt;" />
+            <Button fx:id="UserCabinStopp" layoutX="67.0" layoutY="270.0" mnemonicParsing="false" onAction="#UserCabinStoppClick" prefHeight="26.0" prefWidth="141.0" style="-fx-border-color: red; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-radius: 5;" text="Emergency Stopp" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label layoutX="70.0" layoutY="14.0" prefHeight="48.0" prefWidth="134.0" text="Cabin Control Panel" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="444.0" layoutY="77.0" prefHeight="378.0" prefWidth="411.0" style="-fx-border-color: black; -fx-border-radius: 10; -fx-border-width: 2; -fx-background-radius: 10;" AnchorPane.leftAnchor="444.0" AnchorPane.topAnchor="77.0">
+         <children>
+            <Circle fx:id="UserStockLED4" fill="DODGERBLUE" layoutX="139.0" layoutY="66.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+            <Circle fx:id="UserStockLED3" fill="DODGERBLUE" layoutX="139.0" layoutY="146.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+            <Circle fx:id="UserStockLED2" fill="DODGERBLUE" layoutX="139.0" layoutY="226.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+            <Circle fx:id="UserStockLED1" fill="DODGERBLUE" layoutX="139.0" layoutY="306.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+            <Button fx:id="UserCall4" layoutX="186.0" layoutY="46.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬇">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="UserCall3Down" layoutX="186.0" layoutY="126.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬇">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="UserCall2Down" layoutX="186.0" layoutY="206.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬇">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="UserCall1" layoutX="186.0" layoutY="286.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬆">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="UserCall3Up" layoutX="252.0" layoutY="126.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬆">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="UserCall2Up" layoutX="252.0" layoutY="206.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬆">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Line endX="267.60003662109375" endY="-1.52587890625E-5" layoutX="128.0" layoutY="106.0" startX="-100.0" />
+            <Line endX="267.60003662109375" endY="-1.52587890625E-5" layoutX="128.0" layoutY="186.0" startX="-100.0" />
+            <Line endX="267.60003662109375" endY="-1.52587890625E-5" layoutX="128.0" layoutY="266.0" startX="-100.0" />
+            <Label layoutX="27.0" layoutY="46.0" prefHeight="40.0" prefWidth="99.0" text="Floor: 4">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="27.0" layoutY="126.0" prefHeight="40.0" prefWidth="99.0" text="Floor: 3">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="27.0" layoutY="206.0" prefHeight="40.0" prefWidth="99.0" text="Floor: 2">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="27.0" layoutY="286.0" prefHeight="40.0" prefWidth="99.0" text="Floor: 1">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="444.0" layoutY="40.0" prefHeight="33.0" prefWidth="113.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" AnchorPane.leftAnchor="444.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <Label layoutX="11.0" layoutY="3.0" prefHeight="26.0" prefWidth="82.0" text="Current floor:">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="UserStatusCurrentFloor" layoutX="90.0" layoutY="3.0" prefHeight="26.0" prefWidth="20.0" text="3">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="568.0" layoutY="40.0" prefHeight="33.0" prefWidth="113.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" AnchorPane.leftAnchor="568.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <Label layoutX="11.0" layoutY="3.0" prefHeight="26.0" prefWidth="82.0" text="Next floor:">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="UserStatusNextFloor" layoutX="75.0" layoutY="3.0" prefHeight="26.0" prefWidth="20.0" text="3">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="692.0" layoutY="40.0" prefHeight="33.0" prefWidth="162.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" AnchorPane.leftAnchor="692.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <Label layoutX="11.0" layoutY="3.0" prefHeight="26.0" prefWidth="114.0" text="Current direction:">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="UserStatusShowDirection" layoutX="115.0" layoutY="3.0" prefHeight="26.0" prefWidth="40.0" text="Idle">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="444.0" layoutY="466.0" prefHeight="34.0" prefWidth="142.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;">
+         <children>
+            <Label layoutX="11.0" layoutY="3.0" prefHeight="26.0" prefWidth="72.0" text="Door State:">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="UserStatusDoorLabel" layoutX="83.0" layoutY="3.0" prefHeight="26.0" prefWidth="55.0" text="Opening">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="625.0" layoutY="466.0" prefHeight="114.0" prefWidth="151.0" style="-fx-border-color: black; -fx-border-width: 0.1;">
+         <children>
+            <AnchorPane fx:id="UserDoor1Open" prefHeight="130.0" prefWidth="20.0" style="-fx-background-color: grey; -fx-border-color: black;" />
+            <AnchorPane fx:id="UserDoor2Open" layoutX="142.0" prefHeight="130.0" prefWidth="20.0" style="-fx-background-color: grey; -fx-border-color: black;" />
+            <AnchorPane fx:id="UserDoor1Close" prefHeight="130.0" prefWidth="82.0" style="-fx-background-color: grey; -fx-border-color: black;" />
+            <AnchorPane fx:id="UserDoor2Close" layoutX="81.0" prefHeight="130.0" prefWidth="82.0" style="-fx-background-color: grey; -fx-border-color: black;" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="444.0" layoutY="561.0" prefHeight="34.0" prefWidth="142.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;">
+         <children>
+            <Label layoutX="11.0" layoutY="3.0" prefHeight="26.0" prefWidth="82.0" text="Motor State:">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="UserStatusMotorState" layoutX="90.0" layoutY="3.0" prefHeight="26.0" prefWidth="31.0" text="On">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button fx:id="UserResetSimulation" layoutX="15.0" layoutY="565.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="134.0" text="Reset Simulation" />
+      <AnchorPane layoutX="444.0" layoutY="514.0" prefHeight="34.0" prefWidth="142.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;">
+         <children>
+            <Label layoutX="11.0" layoutY="3.0" prefHeight="26.0" prefWidth="99.0" text="Speed [m/s]:">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="UserStatusSpeedLabel" layoutX="89.0" layoutY="3.0" prefHeight="26.0" prefWidth="49.0" text="1,0000">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
