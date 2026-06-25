@@ -1,10 +1,15 @@
 package com.dds.demo.sysarch_javafx_v1;
 
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
+
+import com.dds.demo.sysarch_javafx_v1.HelloApplication;
+import OpcUaClient.ControlNodes;
+
 
 public class UserController {
 
@@ -115,6 +120,13 @@ public class UserController {
     protected void UserCabinStock1Click() throws Exception
     {
         UserCabinStock1.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
+        HelloApplication.getOpcUaService()
+                .write(ControlNodes.CMD_START, true)
+                .exceptionally(error -> {
+                    error.printStackTrace();
+                    return null;
+                });
     }
 
     @FXML

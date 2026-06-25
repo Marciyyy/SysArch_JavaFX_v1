@@ -25,7 +25,7 @@
 
             <!-- Feste Felder in jedem Logeintrag -->
             <customFields>
-                {"application":"meine-javafx-app","schema":"ui-audit-v1"}
+                {"application":"HMI-UserInteractions","schema":"ui-audit-v1"}
             </customFields>
         </encoder>
     </appender>
