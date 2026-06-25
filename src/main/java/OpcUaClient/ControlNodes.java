@@ -8,6 +8,17 @@ public class ControlNodes
     }
 
     // Schreibbare Befehle
+
+    //Test variable vom Docker server:
+    public static final NodeId TEST_INT32 =
+            new NodeId(2, "Demo.Variants.Scalar.Int32");
+
+
+
+
+
+
+
     public static final NodeId CMD_START =
             NodeId.parse("ns=2;s=Control.Commands.Start");
 

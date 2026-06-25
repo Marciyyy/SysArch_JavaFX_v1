@@ -75,6 +75,8 @@ public class HelloApplication extends Application {
         */
 
 
+        //Richtige connect Mehtod für die spätere implementierung
+/*
         opcUaService.connect()
                 .thenCompose(unused ->
                         opcUaService.subscribe(Map.of(
@@ -116,6 +118,53 @@ public class HelloApplication extends Application {
                     error.printStackTrace();
                     return null;
                 });
+
+ */
+
+
+        //Test connect um schreiben zu testen:
+        opcUaService.connect()
+                .thenCompose(unused ->
+                        opcUaService.subscribe(Map.of(
+
+                                ControlNodes.TEST_INT32,
+                                dataValue -> System.out.println(
+                                        "Subscription-Wert: "
+                                                + dataValue.value().value()
+                                )
+                        ))
+                )
+                .thenCompose(unused ->
+                        opcUaService.write(
+                                ControlNodes.TEST_INT32,
+                                123
+                        )
+                )
+                .thenRun(() ->
+                        System.out.println(
+                                "WRITE erfolgreich: 123 wurde gesendet."
+                        )
+                )
+                .thenCompose(unused ->
+                        opcUaService.read(
+                                ControlNodes.TEST_INT32
+                        )
+                )
+                .thenAccept(dataValue ->
+                        System.out.println(
+                                "READ nach WRITE: "
+                                        + dataValue.value().value()
+                        )
+                )
+                .exceptionally(error -> {
+                    System.err.println(
+                            "Write-Test fehlgeschlagen: "
+                                    + error.getMessage()
+                    );
+                    error.printStackTrace();
+                    return null;
+                });
+
 
 
 
