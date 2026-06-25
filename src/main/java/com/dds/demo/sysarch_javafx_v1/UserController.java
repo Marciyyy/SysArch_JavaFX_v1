@@ -97,6 +97,39 @@ public class UserController {
     {
         UserDoor1Open.setOpacity(0);
         UserDoor2Open.setOpacity(0);
+
+
+        HmiState state = HelloApplication.getHmiState();
+
+
+        //Fortlaufende anzeige:
+        /*
+        // Aktuelle Etage laufend anzeigen
+        floorLabel.textProperty().bind(
+                state.currentFloorProperty().asString()
+        );
+
+        // Türstatus laufend anzeigen
+        doorStatusLabel.textProperty().bind(
+                Bindings.when(state.doorOpenProperty())
+                        .then("Tür geöffnet")
+                        .otherwise("Tür geschlossen")
+        );
+
+        // Fehlertext laufend anzeigen
+        errorLabel.textProperty().bind(
+                state.errorTextProperty()
+        );
+
+        // LED: Grün bei Fahrt, Rot im Stillstand
+        movingLed.fillProperty().bind(
+                Bindings.when(state.elevatorMovingProperty())
+                        .then(Color.LIMEGREEN)
+                        .otherwise(Color.DARKRED)
+        );
+        */
+
+
     }
 
 
@@ -121,12 +154,29 @@ public class UserController {
     {
         UserCabinStock1.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
 
+
         HelloApplication.getOpcUaService()
-                .write(ControlNodes.CMD_START, true)
+                .write(ControlNodes.COMMAND_DOWN, true);
+
+        //GGF:
+        /*
+        HelloApplication.getOpcUaService()
+                .write(ControlNodes.COMMAND_UP, true)
+                .thenRun(() -> Platform.runLater(() ->
+                        commandStatusLabel.setText(
+                                "Aufwärts-Befehl wurde gesendet."
+                        )
+                ))
                 .exceptionally(error -> {
-                    error.printStackTrace();
+                    Platform.runLater(() ->
+                            commandStatusLabel.setText(
+                                    "Befehl fehlgeschlagen: "
+                                            + error.getMessage()
+                            )
+                    );
                     return null;
                 });
+         */
     }
 
     @FXML
