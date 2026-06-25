@@ -1,0 +1,1 @@
+{"@timestamp":"2026-06-25T12:37:42.2017065Z","@version":"1","message":"Speichervorgang gestartet","logger_name":"com.dds.demo.sysarch_javafx_v1.LogInController","thread_name":"JavaFX Application Thread","level":"INFO","level_value":20000,"application":"meine-javafx-app","schema":"ui-audit-v1"}

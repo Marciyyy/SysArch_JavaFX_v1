@@ -15,6 +15,12 @@
 
         <maven.compiler.release>23</maven.compiler.release>
 
+        <slf4j.version>2.0.18</slf4j.version>
+        <logback.version>1.5.35</logback.version>
+        <logstash.encoder.version>9.0</logstash.encoder.version>
+
+        <jackson.version>3.1.0</jackson.version>
+
     </properties>
 
     <dependencies>
@@ -40,6 +46,35 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- API: Diese verwendest du in deinen Java-Klassen -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!-- Backend: Führt die tatsächliche Ausgabe aus -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- JSON-Encoder für Logback -->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logstash.encoder.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>tools.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
     </dependencies>
 

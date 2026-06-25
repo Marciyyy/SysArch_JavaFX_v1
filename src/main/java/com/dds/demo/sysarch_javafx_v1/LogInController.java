@@ -9,6 +9,10 @@ import javafx.scene.input.KeyCode;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 public class LogInController
 {
 
@@ -30,6 +34,8 @@ public class LogInController
     //Normal Attributes
     private static final String Supervisor_UserName = "supervisor";
     private static final String Supervisor_Password = "1234";
+
+    private static final Logger LOG = LoggerFactory.getLogger(LogInController.class);
 
 
     //initialize wird beim laden der FXML aufgerufen (sozusagen wie ein constructor)
@@ -54,6 +60,8 @@ public class LogInController
     @FXML
     private void LogInUserButtonClick() throws IOException
     {
+        LOG.info("Speichervorgang gestartet");
+
         SceneManager.switchScene("User.fxml");
     }
 

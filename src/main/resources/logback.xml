@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Relativer Ordner zum Startverzeichnis der Anwendung -->
+    <property name="LOG_DIR" value="logs"/>
+
+    <appender name="JSON_FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <!-- Aktive Datei -->
+        <file>${LOG_DIR}/interaction.jsonl</file>
+
+        <!-- Täglich rotieren, alte Dateien nach 30 Tagen löschen -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${LOG_DIR}/interaction.%d{yyyy-MM-dd}.jsonl.gz
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+
+        <!-- Jede Zeile ist ein eigenständiges JSON-Objekt -->
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <timeZone>UTC</timeZone>
+
+            <!-- Feste Felder in jedem Logeintrag -->
+            <customFields>
+                {"application":"meine-javafx-app","schema":"ui-audit-v1"}
+            </customFields>
+        </encoder>
+    </appender>
+
+    <!-- Alle Logs deiner Anwendung -->
+    <logger name="com.dds.demo.sysarch_javafx_v1"
+            level="INFO"
+            additivity="false">
+        <appender-ref ref="JSON_FILE"/>
+    </logger>
+
+    <!-- Warnungen von Bibliotheken ebenfalls in dieselbe Datei -->
+    <root level="WARN">
+        <appender-ref ref="JSON_FILE"/>
+    </root>
+
+</configuration>
