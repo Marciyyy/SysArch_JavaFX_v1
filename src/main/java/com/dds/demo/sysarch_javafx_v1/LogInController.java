@@ -1,5 +1,6 @@
 package com.dds.demo.sysarch_javafx_v1;
 
+import OpcUaClient.ControlNodes;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,6 +35,8 @@ public class LogInController
     //Normal Attributes
     private static final String Supervisor_UserName = "supervisor";
     private static final String Supervisor_Password = "1234";
+
+    ControlNodes nodes = HelloApplication.getOpcUaService().getControlNodes();
 
     private static final Logger logger = LoggerFactory.getLogger(LogInController.class);
 
@@ -79,6 +82,14 @@ public class LogInController
         {
             logger.info("Username and Password match successfully");
             LogInErrorTextBox.setText("");
+
+            HelloApplication.getOpcUaService().write(nodes.supervisor, true).thenRun(() ->
+                            logger.info("True Supervisor Signal has been send"))
+                    .exceptionally(error -> {
+                        logger.error("True Supervisor signal sending has failed");
+                        return null;
+                    });
+
 
             try {
                 SceneManager.switchScene("Supervisor.fxml");

@@ -169,7 +169,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <Button fx:id="UserResetSimulation" layoutX="15.0" layoutY="565.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="134.0" text="Reset Simulation" />
+      <Button fx:id="UserResetSimulation" layoutX="15.0" layoutY="565.0" mnemonicParsing="false" onAction="#UserResetSimulationClick" prefHeight="26.0" prefWidth="134.0" text="Reset Simulation" />
       <AnchorPane layoutX="444.0" layoutY="514.0" prefHeight="34.0" prefWidth="142.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;">
          <children>
             <Label layoutX="11.0" layoutY="3.0" prefHeight="26.0" prefWidth="99.0" text="Speed [m/s]:">

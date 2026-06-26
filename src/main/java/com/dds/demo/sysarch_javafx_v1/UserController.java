@@ -226,7 +226,7 @@ public class UserController {
 
             default ->
             {
-                System.err.println("Ungültiges Stockwerk vom OPC-UA-Server: " + currentLevel);
+                System.err.println("Invalid FloorLevel has been send by the OPC UA Server: " + currentLevel);
                 logger.warn("Invalid FloorLevel has been send by the OPC UA Server");
             }
         }
@@ -283,18 +283,15 @@ public class UserController {
     protected void UserResetSimulationClick () throws Exception
     {
         logger.info("User Reset Simulation Button clicked");
-        logger.info("Reset Simulation via UserResetButton");
-        try {
-            HelloApplication.getOpcUaService()
-                    .write(nodes.reset, true)
-                    .exceptionally(error -> {
-                        error.printStackTrace();
-                        return null;
-                    });
-            logger.info("Reset Simulation signal sent successfully");
-        } catch (Exception exception) {
-            logger.error("Sending the reset Simulation signal failed", exception);
-        }
+
+        HelloApplication.getOpcUaService().write(nodes.reset, true).thenRun(() ->
+                        logger.info("Reset Simulation signal sent successfully"))
+                .exceptionally(error -> {
+                    logger.error("Sending the reset Simulation signal failed");
+                    return null;
+                });
+
+
 
     }
 
@@ -352,17 +349,12 @@ public class UserController {
         if( (speed == 0) && (doorClosed == true) )
         {
 
-            try {
-                HelloApplication.getOpcUaService()
-                        .write(nodes.openDoor, true)
-                        .exceptionally(error -> {
-                            error.printStackTrace();
-                            return null;
-                        });
-                logger.info("Open door signal has been send successfully");
-            } catch (Exception exception) {
-                logger.error("Open Door signal couldn't be send", exception);
-            }
+            HelloApplication.getOpcUaService().write(nodes.openDoor, true).thenRun(() ->
+                            logger.info("Open door signal has been send successfully"))
+                    .exceptionally(error -> {
+                        logger.error("Open Door signal couldn't be send");
+                        return null;
+                    });
 
             //Animation:
             try {
@@ -403,17 +395,13 @@ public class UserController {
         if( (speed == 0) && (doorOpen == true) )
         {
 
-            try {
-                HelloApplication.getOpcUaService()
-                        .write(nodes.closeDoor, true)
-                        .exceptionally(error -> {
-                            error.printStackTrace();
-                            return null;
-                        });
-                logger.info("Close Door signal send via OPC UA");
-            } catch (Exception exception) {
-                logger.error("Close Door signal couldn't be send", exception);
-            }
+            HelloApplication.getOpcUaService().write(nodes.closeDoor, true).thenRun(() ->
+                            logger.info("Close Door signal send via OPC UA"))
+                    .exceptionally(error -> {
+                        logger.error("Close Door signal couldn't be send");
+                        return null;
+                    });
+
 
             //Animation:
             try {
@@ -439,37 +427,26 @@ public class UserController {
         if(isEmergency)
         {
 
-            try {
-                HelloApplication.getOpcUaService()
-                        .write(nodes.emergencyStop, false)
-                        .exceptionally(error -> {
-                            error.printStackTrace();
-                            return null;
-                        });
+            HelloApplication.getOpcUaService().write(nodes.emergencyStop, false).thenRun(() ->
+                            logger.info("Emergency Stop set to false"))
+                    .exceptionally(error -> {
+                        logger.error("Setting emergency stop to false has failed");
+                        return null;
+                    });
+            UserCabinStopp.setStyle("-fx-background-color: white;" + "-fx-border-color: red;" + "-fx-border-width: 2;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
 
-                isEmergency = false;
-                UserCabinStopp.setStyle("-fx-background-color: white;" + "-fx-border-color: red;" + "-fx-border-width: 2;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                logger.info("Emergency Stop set to false");
-            } catch (Exception exception) {
-                logger.error("Setting emergency stop to false has failed", exception);
-            }
         }
         else
         {
-            try {
-                HelloApplication.getOpcUaService()
-                        .write(nodes.emergencyStop, true)
-                        .exceptionally(error -> {
-                            error.printStackTrace();
-                            return null;
-                        });
 
-                isEmergency = true;
-                UserCabinStopp.setStyle("-fx-background-color: rgba(255, 0, 0, 0.3);" + "-fx-border-color: red;" + "-fx-border-width: 2;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                logger.info("Emergency Stop set to true");
-            } catch (Exception exception) {
-                logger.error("Setting emergency stop to true has failed", exception);
-            }
+            HelloApplication.getOpcUaService().write(nodes.emergencyStop, true).thenRun(() ->
+                            logger.info("Emergency Stop set to true"))
+                    .exceptionally(error -> {
+                        logger.error("Setting emergency stop to true has failed");
+                        return null;
+                    });
+            UserCabinStopp.setStyle("-fx-background-color: rgba(255, 0, 0, 0.3);" + "-fx-border-color: red;" + "-fx-border-width: 2;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
         }
     }
 
@@ -541,65 +518,47 @@ public class UserController {
             {
                 case 1 ->
                         {
-                            try {
-                                HelloApplication.getOpcUaService()
-                                .write(nodes.insideLevel1, true)
-                                .exceptionally(error -> {
-                                    error.printStackTrace();
-                                    return null;
-                                });
-                                UserCabinStock1.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                                logger.info("Cabin request send for FloorLevel {}", FloorLevel);
-                            } catch (Exception exception) {
-                                logger.error("Cabin request for Level 1 failed", exception);
-                            }
+
+                            HelloApplication.getOpcUaService().write(nodes.insideLevel1, true).thenRun(() ->
+                                            logger.info("Cabin request send for FloorLevel {}", FloorLevel))
+                                    .exceptionally(error -> {
+                                        logger.error("Cabin request for Level 1 failed");
+                                        return null;
+                                    });
+                            UserCabinStock1.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
                         }
                 case 2 ->
                 {
-                            try {
-                                HelloApplication.getOpcUaService()
-                                .write(nodes.insideLevel2, true)
-                                .exceptionally(error -> {
-                                    error.printStackTrace();
-                                    return null;
-                                });
-                                UserCabinStock2.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                                logger.info("Cabin request send for FloorLevel {}", FloorLevel);
-                            } catch (Exception exception) {
-                                logger.error("Cabin request for Level 2 failed", exception);
-                            }
+                    HelloApplication.getOpcUaService().write(nodes.insideLevel2, true).thenRun(() ->
+                                    logger.info("Cabin request send for FloorLevel {}", FloorLevel))
+                            .exceptionally(error -> {
+                                logger.error("Cabin request for Level 2 failed");
+                                return null;
+                            });
+                    UserCabinStock2.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
                 }
                 case 3 ->
                 {
-                            try {
-                                HelloApplication.getOpcUaService()
-                                .write(nodes.insideLevel3, true)
-                                .exceptionally(error -> {
-                                    error.printStackTrace();
-                                    return null;
-                                });
-                                UserCabinStock3.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                                logger.info("Cabin request send for FloorLevel {}", FloorLevel);
-                            } catch (Exception exception) {
-                                logger.error("Cabin request for Level 3 failed", exception);
-                            }
+                    HelloApplication.getOpcUaService().write(nodes.insideLevel3, true).thenRun(() ->
+                                    logger.info("Cabin request send for FloorLevel {}", FloorLevel))
+                            .exceptionally(error -> {
+                                logger.error("Cabin request for Level 3 failed");
+                                return null;
+                            });
+                    UserCabinStock3.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
                 }
                 case 4 ->
                 {
-                            try {
-                                HelloApplication.getOpcUaService()
-                                        .write(nodes.insideLevel4, true)
-                                        .exceptionally(error -> {
-                                            error.printStackTrace();
-                                            return null;
-                                        });
-                                UserCabinStock4.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                                logger.info("Cabin request send for FloorLevel {}", FloorLevel);
-                            }
-                            catch (Exception exception)
-                            {
-                                logger.error("Cabin request for Level 4 failed", exception);
-                            }
+                    HelloApplication.getOpcUaService().write(nodes.insideLevel4, true).thenRun(() ->
+                                    logger.info("Cabin request send for FloorLevel {}", FloorLevel))
+                            .exceptionally(error -> {
+                                logger.error("Cabin request for Level 4 failed");
+                                return null;
+                            });
+                    UserCabinStock4.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
 
                 }
 
@@ -637,94 +596,70 @@ public class UserController {
             {
                 case 1 ->
                 {
-                    try {
-                        HelloApplication.getOpcUaService()
-                                .write(nodes.outsideLevel1Up, true)
+                        HelloApplication.getOpcUaService().write(nodes.outsideLevel1Up, true).thenRun(() ->
+                                        logger.info("Outside request send for Level 1 Up "))
                                 .exceptionally(error -> {
-                                    error.printStackTrace();
+                                    logger.error("Outside request for Level 1 Up failed");
                                     return null;
                                 });
                         UserCall1.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                        logger.info("Outside request send for Level 1 Up ");
-                    } catch (Exception exception) {
-                        logger.error("Outside request for Level 1 Up failed", exception);
-                    }
 
                 }
                 case 2 ->
                 {
-                    try {
-                        HelloApplication.getOpcUaService()
-                                .write(nodes.outsideLevel2Up, true)
-                                .exceptionally(error -> {
-                                    error.printStackTrace();
-                                    return null;
-                                });
-                        UserCall2Up.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                        logger.info("Outside request send for Level 2 Up ");
-                    } catch (Exception exception) {
-                        logger.error("Outside request for Level 2 Up failed", exception);
-                    }
+                    HelloApplication.getOpcUaService().write(nodes.outsideLevel2Up, true).thenRun(() ->
+                                    logger.info("Outside request send for Level 2 Up "))
+                            .exceptionally(error -> {
+                                logger.error("Outside request for Level 2 Up failed");
+                                return null;
+                            });
+                    UserCall2Up.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
                 }
                 case 3 ->
                 {
-                    try {
-                        HelloApplication.getOpcUaService()
-                                .write(nodes.outsideLevel2Down, true)
-                                .exceptionally(error -> {
-                                    error.printStackTrace();
-                                    return null;
-                                });
-                        UserCall2Down.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                        logger.info("Outside request send for Level 2 Down ");
-                    } catch (Exception exception) {
-                        logger.error("Outside request for Level 2 Down failed", exception);
-                    }
+
+                    HelloApplication.getOpcUaService().write(nodes.outsideLevel2Down, true).thenRun(() ->
+                                    logger.info("Outside request send for Level 2 Down "))
+                            .exceptionally(error -> {
+                                logger.error("Outside request for Level 2 Down failed");
+                                return null;
+                            });
+                    UserCall2Down.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
                 }
                 case 4 ->
                 {
-                    try {
-                        HelloApplication.getOpcUaService()
-                                .write(nodes.outsideLevel3Up, true)
-                                .exceptionally(error -> {
-                                    error.printStackTrace();
-                                    return null;
-                                });
-                        UserCall3Up.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                        logger.info("Outside request send for Level 3 Up");
-                    } catch (Exception exception) {
-                        logger.error("Outside request for Level 3 Up failed", exception);
-                    }
+                    HelloApplication.getOpcUaService().write(nodes.outsideLevel3Up, true).thenRun(() ->
+                                    logger.info("Outside request send for Level 3 Up "))
+                            .exceptionally(error -> {
+                                logger.error("Outside request for Level 3 Up failed");
+                                return null;
+                            });
+                    UserCall3Up.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
                 }
                 case 5 ->
                 {
-                    try {
-                        HelloApplication.getOpcUaService()
-                                .write(nodes.outsideLevel3Down, true)
-                                .exceptionally(error -> {
-                                    error.printStackTrace();
-                                    return null;
-                                });
-                        UserCall3Down.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                        logger.info("Outside request send for Level 3 Down ");
-                    } catch (Exception exception) {
-                        logger.error("Outside request for Level 3 Down failed", exception);
-                    }
+                    HelloApplication.getOpcUaService().write(nodes.outsideLevel3Down, true).thenRun(() ->
+                                    logger.info("Outside request send for Level 3 Down "))
+                            .exceptionally(error -> {
+                                logger.error("Outside request for Level 3 Down failed");
+                                return null;
+                            });
+                    UserCall3Down.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
                 }
                 case 6 ->
                 {
-                    try {
-                        HelloApplication.getOpcUaService()
-                                .write(nodes.outsideLevel4Down, true)
-                                .exceptionally(error -> {
-                                    error.printStackTrace();
-                                    return null;
-                                });
-                        UserCall4.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                        logger.info("Outside request send for Level 4 Down ");
-                    } catch (Exception exception) {
-                        logger.error("Outside request for Level 4 Down failed", exception);
-                    }
+                    HelloApplication.getOpcUaService().write(nodes.outsideLevel4Down, true).thenRun(() ->
+                                    logger.info("Outside request send for Level 4 Down "))
+                            .exceptionally(error -> {
+                                logger.error("Outside request for Level 4 Down failed");
+                                return null;
+                            });
+                    UserCall4.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
                 }
 
             }
