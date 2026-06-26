@@ -1,63 +1,104 @@
 package OpcUaClient;
 
+import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
+import org.eclipse.milo.opcua.stack.core.NamespaceTable;
+import org.eclipse.milo.opcua.stack.core.UaException;
 import org.eclipse.milo.opcua.stack.core.types.builtin.NodeId;
+import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.UShort;
 
-public class ControlNodes
-{
-    private ControlNodes() {
+public final class ControlNodes {
+
+    public static final String NAMESPACE_URI =
+            "urn:example:opcua:process-namespace";
+
+    private final int namespaceIndex;
+
+    // Client -> Server: schreibbare Variablen
+    public final NodeId insideLevel1;
+    public final NodeId insideLevel2;
+    public final NodeId insideLevel3;
+    public final NodeId insideLevel4;
+
+    public final NodeId outsideLevel1Up;
+    public final NodeId outsideLevel2Up;
+    public final NodeId outsideLevel2Down;
+    public final NodeId outsideLevel3Up;
+    public final NodeId outsideLevel3Down;
+    public final NodeId outsideLevel4Down;
+
+    public final NodeId openDoor;
+    public final NodeId closeDoor;
+    public final NodeId emergencyStop;
+    public final NodeId reset;
+    public final NodeId supervisor;
+
+    public final NodeId supervisorV1Up;
+    public final NodeId supervisorV1Down;
+    public final NodeId supervisorV2Up;
+    public final NodeId supervisorV2Down;
+    public final NodeId supervisorCrawl;
+
+    // Server -> Client: lesbare Variablen
+    public final NodeId currentLevel;
+    public final NodeId nextLevel;
+    public final NodeId elevatorState;
+    public final NodeId direction;
+    public final NodeId doorOpen;
+    public final NodeId doorClosed;
+    public final NodeId motorReady;
+
+    private ControlNodes(int namespaceIndex) {
+        this.namespaceIndex = namespaceIndex;
+
+        insideLevel1 = new NodeId(namespaceIndex, "InsideLevel1");
+        insideLevel2 = new NodeId(namespaceIndex, "InsideLevel2");
+        insideLevel3 = new NodeId(namespaceIndex, "InsideLevel3");
+        insideLevel4 = new NodeId(namespaceIndex, "InsideLevel4");
+
+        outsideLevel1Up = new NodeId(namespaceIndex, "OutsideLevel1Up");
+        outsideLevel2Up = new NodeId(namespaceIndex, "OutsideLevel2Up");
+        outsideLevel2Down = new NodeId(namespaceIndex, "OutsideLevel2Down");
+        outsideLevel3Up = new NodeId(namespaceIndex, "OutsideLevel3Up");
+        outsideLevel3Down = new NodeId(namespaceIndex, "OutsideLevel3Down");
+        outsideLevel4Down = new NodeId(namespaceIndex, "OutsideLevel4Down");
+
+        openDoor = new NodeId(namespaceIndex, "OpenDoor");
+        closeDoor = new NodeId(namespaceIndex, "CloseDoor");
+        emergencyStop = new NodeId(namespaceIndex, "EmergencyStop");
+        reset = new NodeId(namespaceIndex, "Reset");
+        supervisor = new NodeId(namespaceIndex, "Supervisor");
+
+        supervisorV1Up = new NodeId(namespaceIndex, "SupervisorV1Up");
+        supervisorV1Down = new NodeId(namespaceIndex, "SupervisorV1Down");
+        supervisorV2Up = new NodeId(namespaceIndex, "SupervisorV2Up");
+        supervisorV2Down = new NodeId(namespaceIndex, "SupervisorV2Down");
+        supervisorCrawl = new NodeId(namespaceIndex, "SupervisorCrawl");
+
+        currentLevel = new NodeId(namespaceIndex, "CurrentLevel");
+        nextLevel = new NodeId(namespaceIndex, "NextLevel");
+        elevatorState = new NodeId(namespaceIndex, "ElevatorState");
+        direction = new NodeId(namespaceIndex, "Direction");
+        doorOpen = new NodeId(namespaceIndex, "DoorOpen");
+        doorClosed = new NodeId(namespaceIndex, "DoorClosed");
+        motorReady = new NodeId(namespaceIndex, "MotorReady");
     }
 
-    // Schreibbare Befehle
+    public static ControlNodes create(OpcUaClient client) throws UaException {
+        NamespaceTable namespaceTable = client.readNamespaceTable();
 
-    //Test variable vom Docker server:
-    public static final NodeId TEST_INT32 =
-            new NodeId(2, "Demo.Variants.Scalar.Int32");
+        UShort namespaceIndex =
+                namespaceTable.getIndex(NAMESPACE_URI);
 
+        if (namespaceIndex == null) {
+            throw new IllegalStateException(
+                    "Namespace nicht gefunden: " + NAMESPACE_URI
+            );
+        }
 
+        return new ControlNodes(namespaceIndex.intValue());
+    }
 
-
-
-
-
-    public static final NodeId CMD_START =
-            NodeId.parse("ns=2;s=Control.Commands.Start");
-
-    public static final NodeId CMD_STOP =
-            NodeId.parse("ns=2;s=Control.Commands.Stop");
-
-    public static final NodeId SETPOINT_SPEED =
-            NodeId.parse("ns=2;s=Control.Parameters.SpeedSetpoint");
-
-    // Werte vom Control-Programm
-    public static final NodeId MACHINE_RUNNING =
-            NodeId.parse("ns=2;s=Control.Status.MachineRunning");
-
-    public static final NodeId ACTUAL_SPEED =
-            NodeId.parse("ns=2;s=Control.Status.ActualSpeed");
-
-    public static final NodeId ERROR_CODE =
-            NodeId.parse("ns=2;s=Control.Status.ErrorCode");
-
-
-    public static final NodeId CURRENT_FLOOR =
-            new NodeId(2, "Elevator.Status.CurrentFloor");
-
-    public static final NodeId ELEVATOR_MOVING =
-            new NodeId(2, "Elevator.Status.Moving");
-
-    public static final NodeId DOOR_OPEN =
-            new NodeId(2, "Elevator.Status.DoorOpen");
-
-    public static final NodeId ERROR_TEXT =
-            new NodeId(2, "Elevator.Status.ErrorText");
-
-    // Befehle vom HMI zum Control-Programm
-    public static final NodeId COMMAND_UP =
-            new NodeId(2, "Elevator.Command.Up");
-
-    public static final NodeId COMMAND_DOWN =
-            new NodeId(2, "Elevator.Command.Down");
-
-    public static final NodeId COMMAND_OPEN_DOOR =
-            new NodeId(2, "Elevator.Command.OpenDoor");
+    public int getNamespaceIndex() {
+        return namespaceIndex;
+    }
 }

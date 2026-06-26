@@ -42,7 +42,8 @@ public class HelloApplication extends Application {
 
         //opcUaService = new OpcUaService("opc.tcp://192.168.1.50:12686/milo", connected -> System.out.println(connected ? "OPC-UA verbunden." : "OPC-UA nicht verbunden."));
 
-        opcUaService = new OpcUaService("opc.tcp://localhost:4840/milo", connected -> {
+        //!!!!!!Hier später statt /milo: /opcua/process!!!!!!; Da beide programme später über ssh eapc165 laufen passt das, sonst müsste man hier noch riuchtigee IP statt localhost angeben
+        opcUaService = new OpcUaService("opc.tcp://localhost:4840/opcua/process", connected -> {
             hmiState.setConnected(connected);
             System.out.println(connected ? "OPC-UA connected." : "OPC-UA not connected.");
         });
@@ -51,61 +52,59 @@ public class HelloApplication extends Application {
 
         // Verbindung im Hintergrund starten.
         // Die GUI wird dadurch nicht blockiert.
-        /*
-        opcUaService.connect().thenRun(() -> System.out.println("Verbindung zum OPC-UA-Server erfolgreich.")).exceptionally(error ->
-        {   System.err.println("OPC-UA-Verbindung fehlgeschlagen: " + error.getMessage());
-            error.printStackTrace();
-            return null;
-        });
-        */
 
-        //Zwei test methods mit dem docker desktop test milo server:
-        /*
-        opcUaService.connect().thenCompose(unused -> opcUaService.read(Identifiers.Server_ServerStatus_CurrentTime)).thenAccept(dataValue -> {
-                    System.out.println("TEST ERFOLGREICH. Serverzeit: " + dataValue.value().value());
-                })
-                .exceptionally(error -> {
-                    System.err.println("OPC-UA-Test fehlgeschlagen: " + error.getMessage());
-                    error.printStackTrace();
-                    return null;});
-
-        opcUaService.subscribe(Map.of(Identifiers.Server_ServerStatus_CurrentTime, dataValue ->
-                System.out.println("Subscription: " + dataValue.value().value())
-        ));
-        */
 
 
         //Richtige connect Mehtod für die spätere implementierung
-/*
+
         opcUaService.connect()
-                .thenCompose(unused ->
-                        opcUaService.subscribe(Map.of(
+                .thenCompose(unused -> {
+                    ControlNodes nodes = opcUaService.getControlNodes();
 
-                                ControlNodes.CURRENT_FLOOR,
-                                dataValue -> updateInteger(
-                                        dataValue,
-                                        hmiState::setCurrentFloor
-                                ),
+                    return opcUaService.subscribe(Map.of(
+                            nodes.currentLevel,
+                            dataValue -> updateInteger(
+                                    dataValue,
+                                    hmiState::setCurrentLevel
+                            ),
 
-                                ControlNodes.ELEVATOR_MOVING,
-                                dataValue -> updateBoolean(
-                                        dataValue,
-                                        hmiState::setElevatorMoving
-                                ),
+                            nodes.nextLevel,
+                            dataValue -> updateInteger(
+                                    dataValue,
+                                    hmiState::setNextLevel
+                            ),
 
-                                ControlNodes.DOOR_OPEN,
-                                dataValue -> updateBoolean(
-                                        dataValue,
-                                        hmiState::setDoorOpen
-                                ),
+                            nodes.elevatorState,
+                            dataValue -> updateString(
+                                    dataValue,
+                                    hmiState::setElevatorState
+                            ),
 
-                                ControlNodes.ERROR_TEXT,
-                                dataValue -> updateString(
-                                        dataValue,
-                                        hmiState::setErrorText
-                                )
-                        ))
-                )
+                            nodes.direction,
+                            dataValue -> updateString(
+                                    dataValue,
+                                    hmiState::setDirection
+                            ),
+
+                            nodes.doorOpen,
+                            dataValue -> updateBoolean(
+                                    dataValue,
+                                    hmiState::setDoorOpen
+                            ),
+
+                            nodes.doorClosed,
+                            dataValue -> updateBoolean(
+                                    dataValue,
+                                    hmiState::setDoorClosed
+                            ),
+
+                            nodes.motorReady,
+                            dataValue -> updateBoolean(
+                                    dataValue,
+                                    hmiState::setMotorReady
+                            )
+                    ));
+                })
                 .thenRun(() ->
                         System.out.println(
                                 "OPC-UA verbunden und Subscriptions aktiv."
@@ -119,51 +118,11 @@ public class HelloApplication extends Application {
                     return null;
                 });
 
- */
 
 
-        //Test connect um schreiben zu testen:
-        opcUaService.connect()
-                .thenCompose(unused ->
-                        opcUaService.subscribe(Map.of(
 
-                                ControlNodes.TEST_INT32,
-                                dataValue -> System.out.println(
-                                        "Subscription-Wert: "
-                                                + dataValue.value().value()
-                                )
-                        ))
-                )
-                .thenCompose(unused ->
-                        opcUaService.write(
-                                ControlNodes.TEST_INT32,
-                                123
-                        )
-                )
-                .thenRun(() ->
-                        System.out.println(
-                                "WRITE erfolgreich: 123 wurde gesendet."
-                        )
-                )
-                .thenCompose(unused ->
-                        opcUaService.read(
-                                ControlNodes.TEST_INT32
-                        )
-                )
-                .thenAccept(dataValue ->
-                        System.out.println(
-                                "READ nach WRITE: "
-                                        + dataValue.value().value()
-                        )
-                )
-                .exceptionally(error -> {
-                    System.err.println(
-                            "Write-Test fehlgeschlagen: "
-                                    + error.getMessage()
-                    );
-                    error.printStackTrace();
-                    return null;
-                });
+
+
 
 
 

@@ -40,6 +40,7 @@ public final class OpcUaService {
 
     private volatile OpcUaClient client;
     private volatile OpcUaSubscription subscription;
+    private volatile ControlNodes controlNodes;
     private volatile boolean connected;
 
     public OpcUaService(String endpointUrl, Consumer<Boolean> connectionStateConsumer)
@@ -48,28 +49,50 @@ public final class OpcUaService {
         this.connectionStateConsumer = connectionStateConsumer;
     }
 
-    public CompletableFuture<Void> connect()
-    {
+    public CompletableFuture<Void> connect() {
         return CompletableFuture.runAsync(() -> {
-            if (connected)
-            {
+            if (connected) {
                 return;
             }
 
             try {
                 client = createClient();
+
+                // Wichtig: Auf die echte Verbindung warten.
                 client.connect();
+
+                // Erst nach dem Connect wird der Namespace aufgelöst.
+                controlNodes = ControlNodes.create(client);
 
                 connected = true;
                 updateConnectionState(true);
 
+                System.out.println(
+                        "OPC-UA verbunden. Namespace-Index: "
+                                + controlNodes.getNamespaceIndex()
+                );
+
             } catch (Exception e) {
+                controlNodes = null;
+                client = null;
                 connected = false;
                 updateConnectionState(false);
 
                 throw new CompletionException(e);
             }
         }, opcExecutor);
+    }
+
+    public ControlNodes getControlNodes() {
+        requireConnected();
+
+        if (controlNodes == null) {
+            throw new IllegalStateException(
+                    "ControlNodes wurden noch nicht initialisiert."
+            );
+        }
+
+        return controlNodes;
     }
 
     public CompletableFuture<Void> write(NodeId nodeId, Object value)
@@ -174,6 +197,7 @@ public final class OpcUaService {
                 }
 
             } finally {
+                controlNodes = null;
                 connected = false;
                 updateConnectionState(false);
             }

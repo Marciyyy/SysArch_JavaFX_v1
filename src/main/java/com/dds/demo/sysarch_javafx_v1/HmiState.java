@@ -1,6 +1,5 @@
 package com.dds.demo.sysarch_javafx_v1;
 
-
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -8,63 +7,103 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-
-
-//Hier alle Variablen hinzufügen, die später in den Scenes angezeigt werden sollen (speed, stockwerk etc.)
 public class HmiState {
 
+    // Lokaler Verbindungsstatus des HMI
     private final BooleanProperty connected =
             new SimpleBooleanProperty(false);
 
-    private final IntegerProperty currentFloor =
-            new SimpleIntegerProperty(0);
+    // Statuswerte vom OPC-UA-Server
+    private final IntegerProperty currentLevel =
+            new SimpleIntegerProperty(1);
 
-    private final BooleanProperty elevatorMoving =
-            new SimpleBooleanProperty(false);
+    private final IntegerProperty nextLevel =
+            new SimpleIntegerProperty(1);
+
+    private final StringProperty elevatorState =
+            new SimpleStringProperty("STOPPED");
+
+    private final StringProperty direction =
+            new SimpleStringProperty("DontCare");
 
     private final BooleanProperty doorOpen =
             new SimpleBooleanProperty(false);
 
-    private final StringProperty errorText =
-            new SimpleStringProperty("");
+    private final BooleanProperty doorClosed =
+            new SimpleBooleanProperty(true);
+
+    private final BooleanProperty motorReady =
+            new SimpleBooleanProperty(false);
+
+    // ----------------------------------------------------------
+    // Properties für JavaFX-Bindings
+    // ----------------------------------------------------------
 
     public BooleanProperty connectedProperty() {
         return connected;
     }
 
-    public IntegerProperty currentFloorProperty() {
-        return currentFloor;
+    public IntegerProperty currentLevelProperty() {
+        return currentLevel;
     }
 
-    public BooleanProperty elevatorMovingProperty() {
-        return elevatorMoving;
+    public IntegerProperty nextLevelProperty() {
+        return nextLevel;
+    }
+
+    public StringProperty elevatorStateProperty() {
+        return elevatorState;
+    }
+
+    public StringProperty directionProperty() {
+        return direction;
     }
 
     public BooleanProperty doorOpenProperty() {
         return doorOpen;
     }
 
-    public StringProperty errorTextProperty() {
-        return errorText;
+    public BooleanProperty doorClosedProperty() {
+        return doorClosed;
     }
+
+    public BooleanProperty motorReadyProperty() {
+        return motorReady;
+    }
+
+    // ----------------------------------------------------------
+    // Setter: werden durch OPC-UA-Subscriptions aufgerufen
+    // ----------------------------------------------------------
 
     public void setConnected(boolean value) {
         connected.set(value);
     }
 
-    public void setCurrentFloor(int value) {
-        currentFloor.set(value);
+    public void setCurrentLevel(int value) {
+        currentLevel.set(value);
     }
 
-    public void setElevatorMoving(boolean value) {
-        elevatorMoving.set(value);
+    public void setNextLevel(int value) {
+        nextLevel.set(value);
+    }
+
+    public void setElevatorState(String value) {
+        elevatorState.set(value);
+    }
+
+    public void setDirection(String value) {
+        direction.set(value);
     }
 
     public void setDoorOpen(boolean value) {
         doorOpen.set(value);
     }
 
-    public void setErrorText(String value) {
-        errorText.set(value);
+    public void setDoorClosed(boolean value) {
+        doorClosed.set(value);
+    }
+
+    public void setMotorReady(boolean value) {
+        motorReady.set(value);
     }
 }

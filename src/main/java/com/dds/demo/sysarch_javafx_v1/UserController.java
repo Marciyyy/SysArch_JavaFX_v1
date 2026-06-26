@@ -95,6 +95,8 @@ public class UserController {
 
     private boolean isEmergency = false;
 
+    ControlNodes nodes = HelloApplication.getOpcUaService().getControlNodes();
+
 
 
 
@@ -108,7 +110,38 @@ public class UserController {
 
         HmiState state = HelloApplication.getHmiState();
 
+        //Neu:
+        /*
+        currentFloorLabel.textProperty().bind(
+        HelloApplication.getHmiState()
+                .currentLevelProperty()
+                .asString()
+        );
 
+
+        elevatorStateLabel.textProperty().bind(
+        HelloApplication.getHmiState()
+                .elevatorStateProperty()
+        );
+
+
+        doorOpenLabel.textProperty().bind(
+        HelloApplication.getHmiState()
+                .doorOpenProperty()
+                .asString()
+        );
+
+
+
+
+
+
+
+         */
+
+
+
+        //Alt:
         //Fortlaufende anzeige:
         /*
         // Aktuelle Etage laufend anzeigen
@@ -162,8 +195,22 @@ public class UserController {
         UserCabinStock1.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
 
 
+        //Für unseren Server:
+        HelloApplication.getOpcUaService()
+                .write(nodes.openDoor, true)
+                .exceptionally(error -> {
+                    error.printStackTrace();
+                    return null;
+                });
+
+
+
+        //Alt:
+        /*
         HelloApplication.getOpcUaService()
                 .write(ControlNodes.COMMAND_DOWN, true);
+
+         */
 
         //GGF:
         /*
