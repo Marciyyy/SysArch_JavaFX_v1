@@ -35,7 +35,7 @@ public class LogInController
     private static final String Supervisor_UserName = "supervisor";
     private static final String Supervisor_Password = "1234";
 
-    private static final Logger LOG = LoggerFactory.getLogger(LogInController.class);
+    private static final Logger logger = LoggerFactory.getLogger(LogInController.class);
 
 
     //initialize wird beim laden der FXML aufgerufen (sozusagen wie ein constructor)
@@ -60,24 +60,36 @@ public class LogInController
     @FXML
     private void LogInUserButtonClick() throws IOException
     {
-        LOG.info("Speichervorgang gestartet");
-
-        SceneManager.switchScene("User.fxml");
+        logger.info("LogIn User Button clicked");
+        try {
+            SceneManager.switchScene("User.fxml");
+        } catch (Exception exception) {
+            logger.error("Switching to Scene User.fxml has failed", exception);
+        }
     }
 
     @FXML
     private void LogInConfirmButtonClick () throws IOException
     {
+        logger.info("LogIn Confirm Button clicked or pressed Enter");
         String username = LogInUsernameTextField.getText();
         String password = LogInPasswordField.getText();
 
         if ( username.equals(Supervisor_UserName) && password.equals(Supervisor_Password) )
         {
+            logger.info("Username and Password match successfully");
             LogInErrorTextBox.setText("");
-            SceneManager.switchScene("Supervisor.fxml");
+
+            try {
+                SceneManager.switchScene("Supervisor.fxml");
+            } catch (Exception exception) {
+                logger.error("Switching to Scene Supervisor.fxml has failed", exception);
+            }
+
         }
         else
         {
+            logger.warn("Username and Password input wrong");
             LogInErrorTextBox.setText("Username or Password wrong!");
         }
     }

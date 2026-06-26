@@ -6,6 +6,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -64,6 +66,8 @@ public class SupervisorController
     private Label SupervisorStatusPLC;
     @FXML
     private Label SupervisorStatusSpeedLabel;
+
+    private static final Logger logger = LoggerFactory.getLogger(SupervisorController.class);
 
 
 

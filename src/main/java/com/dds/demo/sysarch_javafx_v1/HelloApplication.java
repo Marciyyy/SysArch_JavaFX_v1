@@ -15,13 +15,13 @@ import java.util.function.Consumer;
 
 
 import OpcUaClient.OpcUaService;
-
-
-
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class HelloApplication extends Application {
+
+    private static final Logger logger = LoggerFactory.getLogger(HelloApplication.class);
 
     private static OpcUaService opcUaService;
 
@@ -29,6 +29,7 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args)
     {
+        logger.info("HMI application started");
         //Wenn main drinne ist wird zuerst main ausgeführt bius zu dem punkt wo launch(args) kommt.
         launch(args);
         //Nach launch(args) wird in der main nix mehr ausgeführt. Deshlb falls code in der main nötig ist. Diesen vor launch schreiben.
@@ -43,10 +44,25 @@ public class HelloApplication extends Application {
         //opcUaService = new OpcUaService("opc.tcp://192.168.1.50:12686/milo", connected -> System.out.println(connected ? "OPC-UA verbunden." : "OPC-UA nicht verbunden."));
 
         //!!!!!!Hier später statt /milo: /opcua/process!!!!!!; Da beide programme später über ssh eapc165 laufen passt das, sonst müsste man hier noch riuchtigee IP statt localhost angeben
+       // VErsion ohne logging:
+        /*
         opcUaService = new OpcUaService("opc.tcp://localhost:4840/opcua/process", connected -> {
             hmiState.setConnected(connected);
             System.out.println(connected ? "OPC-UA connected." : "OPC-UA not connected.");
         });
+         */
+        //Version mit logging statt println:
+        opcUaService = new OpcUaService("opc.tcp://localhost:4840/opcua/process", connected -> {
+                    hmiState.setConnected(connected);
+                    if (connected)
+                    {
+                        logger.info("OPC-UA-Connection has been established succesfully");
+                    } else
+                    {
+                        logger.error("OPC-UA-Connection establishment has failed");
+                    }
+                }
+        );
 
 
 
@@ -106,25 +122,17 @@ public class HelloApplication extends Application {
                     ));
                 })
                 .thenRun(() ->
-                        System.out.println(
-                                "OPC-UA verbunden und Subscriptions aktiv."
-                        )
-                )
-                .exceptionally(error -> {
-                    System.err.println(
-                            "OPC-UA-Fehler: " + error.getMessage()
-                    );
+                {
+                    System.out.println("OPC-UA connected and subscriptions activ und Subscriptions aktiv");
+                    logger.info("OPC-UA connected and subscriptions activ und Subscriptions aktiv");
+                })
+                .exceptionally(error ->
+                {
+                    System.err.println("OPC-UA-Error: " + error.getMessage());
                     error.printStackTrace();
+                    logger.error("OPC-UA-Connection or subscription failed", error);
                     return null;
                 });
-
-
-
-
-
-
-
-
 
 
 
@@ -142,25 +150,31 @@ public class HelloApplication extends Application {
     }
 
     @Override
-    public void stop() {
+    public void stop()
+    {
         // Wird beim Schließen des HMI aufgerufen.
         if (opcUaService != null)
         {
+            logger.info("Shutdown of the OpcUaService");
             opcUaService.shutdown();
         }
+        logger.info("Stopped the application");
     }
 
-    public static OpcUaService getOpcUaService() {
+    public static OpcUaService getOpcUaService()
+    {
         if (opcUaService == null)
         {
-            throw new IllegalStateException("OpcUaService wurde noch nicht initialisiert.");
+            logger.info("OpcUaService hasn't been initialized yet");
+            throw new IllegalStateException("OpcUaService hasn't been initialized yet");
         }
 
         return opcUaService;
     }
 
 
-    public static HmiState getHmiState() {
+    public static HmiState getHmiState()
+    {
         return hmiState;
     }
 
@@ -170,7 +184,8 @@ public class HelloApplication extends Application {
     {
         if (!dataValue.statusCode().isGood())
         {
-            System.err.println("Ungültiger OPC-UA-Wert: " + dataValue.statusCode());
+            logger.warn("Invalid OPC-UA Value has been transferred during an subscription transfer: {}; Should be Boolean", dataValue.statusCode() );
+            System.err.println("Invalid OPC-UA Value has been transferred during an subscription transfer: " + dataValue.statusCode()+" ;Should be Boolean");
             return;
         }
 
@@ -186,7 +201,8 @@ public class HelloApplication extends Application {
     {
         if (!dataValue.statusCode().isGood())
         {
-            System.err.println("Ungültiger OPC-UA-Wert: " + dataValue.statusCode());
+            logger.warn("Invalid OPC-UA Value has been transferred during an subscription transfer: {}; Should be Integer", dataValue.statusCode() );
+            System.err.println("Invalid OPC-UA Value has been transferred during an subscription transfer: " + dataValue.statusCode() + " ;Should be Integer");
             return;
         }
 
@@ -202,7 +218,8 @@ public class HelloApplication extends Application {
     {
         if (!dataValue.statusCode().isGood())
         {
-            System.err.println("Ungültiger OPC-UA-Wert: " + dataValue.statusCode());
+            logger.warn("Invalid OPC-UA Value has been transferred during an subscription transfer: {}; Should be String", dataValue.statusCode() );
+            System.err.println("Invalid OPC-UA Value has been transferred during an subscription transfer: " + dataValue.statusCode() +" ;Should be String");
             return;
         }
 
