@@ -12,6 +12,7 @@ import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 import java.io.IOException;
 import java.util.Map;
 import java.util.function.Consumer;
+import javafx.application.Platform;
 
 
 import OpcUaClient.OpcUaService;
@@ -125,6 +126,26 @@ public class HelloApplication extends Application {
                 {
                     System.out.println("OPC-UA connected and subscriptions activ und Subscriptions aktiv");
                     logger.info("OPC-UA connected and subscriptions activ und Subscriptions aktiv");
+
+                    // GUI darf nur auf dem JavaFX-Thread geändert werden.
+                    Platform.runLater(() ->
+                    {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("LogIn.fxml"));
+
+                            Scene scene = new Scene(loader.load());
+
+                            stage.setTitle("Elevator-HMI");
+                            stage.setScene(scene);
+                            stage.show();
+
+                            logger.info("LogIn scene loaded.");
+
+                        } catch (IOException error)
+                        {
+                            logger.error("Loading LogIn.fxml failed.", error);
+                        }
+                    });
                 })
                 .exceptionally(error ->
                 {
@@ -138,7 +159,9 @@ public class HelloApplication extends Application {
 
 
 
-
+        //Geht so nicht, weil zuerst die verbindung aufgebaut sein sollte. Alle Controller nutzen nämlich
+        //getControlNodes() aber wenn noch keine Verbindung dann problem
+        /*
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LogIn.fxml"));
 
         Scene scene = new Scene(loader.load());
@@ -146,6 +169,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Elevator-HMI");
         stage.setScene(scene);
         stage.show();
+        */
 
     }
 

@@ -131,12 +131,26 @@ public class UserController {
                         .asString()
         );
 
+
+        //Neue method:
+        state.currentLevelProperty().addListener(
+                (observable, oldLevel, newLevel) -> {
+                    showCurrentFloor(newLevel.intValue());
+                    resetArrivedFloorButtons();
+                }
+        );
+
+        //Alt:
+        /*
         //LEDs (Circles) für das aktuelle Stockwerk anzeigen lassen --> siehe method showCurrentFloor
         state.currentLevelProperty().addListener(
                 (observable, oldLevel, newLevel) ->
                         showCurrentFloor(newLevel.intValue())
         );
+         */
         showCurrentFloor(state.currentLevelProperty().get());
+        //Neu:
+        resetArrivedFloorButtons();
 
         //Next Floor anzeigen lassen (Integer):
         UserStatusNextFloor.textProperty().bind(
@@ -231,6 +245,8 @@ public class UserController {
             }
         }
 
+        //Entfrtn und stattdessen resetArrivedFloorButtons eingesetzt
+        /*
     //Button Farben zurücksetzten:
         switch (currentLevel)
         {
@@ -259,11 +275,47 @@ public class UserController {
 
             default -> System.err.println("Ungültiges Stockwerk vom OPC-UA-Server: " + currentLevel);
         }
+         */
+    }
 
+    private void resetArrivedFloorButtons() {
+        int currentFloor = HelloApplication.getHmiState()
+                .currentLevelProperty()
+                .get();
 
+        // Während der Fahrt keine Anforderungs-Buttons zurücksetzen.
+        if (speed != 0) {
+            return;
+        }
 
+        switch (currentFloor) {
+            case 1 -> {
+                UserCabinStock1.setStyle("");
+                UserCall1.setStyle("");
+            }
 
+            case 2 -> {
+                UserCabinStock2.setStyle("");
+                UserCall2Up.setStyle("");
+                UserCall2Down.setStyle("");
+            }
 
+            case 3 -> {
+                UserCabinStock3.setStyle("");
+                UserCall3Up.setStyle("");
+                UserCall3Down.setStyle("");
+            }
+
+            case 4 -> {
+                UserCabinStock4.setStyle("");
+                UserCall4.setStyle("");
+            }
+
+            default -> logger.warn(
+                    "Cannot reset buttons: invalid floor {}",
+                    currentFloor
+            );
+        }
     }
 
 
@@ -427,25 +479,32 @@ public class UserController {
         if(isEmergency)
         {
 
-            HelloApplication.getOpcUaService().write(nodes.emergencyStop, false).thenRun(() ->
-                            logger.info("Emergency Stop set to false"))
+            HelloApplication.getOpcUaService().write(nodes.emergencyStop, false)
+                    .thenRun(() ->
+                            {
+                                logger.info("Emergency Stop set to false");
+                                UserCabinStopp.setStyle("-fx-background-color: white;" + "-fx-border-color: red;" + "-fx-border-width: 2;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                                isEmergency = false;
+                            })
                     .exceptionally(error -> {
                         logger.error("Setting emergency stop to false has failed");
                         return null;
                     });
-            UserCabinStopp.setStyle("-fx-background-color: white;" + "-fx-border-color: red;" + "-fx-border-width: 2;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
 
         }
         else
         {
-
-            HelloApplication.getOpcUaService().write(nodes.emergencyStop, true).thenRun(() ->
-                            logger.info("Emergency Stop set to true"))
+            HelloApplication.getOpcUaService().write(nodes.emergencyStop, true)
+                    .thenRun(() ->
+                    {
+                        logger.info("Emergency Stop set to true");
+                        UserCabinStopp.setStyle("-fx-background-color: rgba(255, 0, 0, 0.3);" + "-fx-border-color: red;" + "-fx-border-width: 2;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                        isEmergency = true;
+                    })
                     .exceptionally(error -> {
                         logger.error("Setting emergency stop to true has failed");
                         return null;
                     });
-            UserCabinStopp.setStyle("-fx-background-color: rgba(255, 0, 0, 0.3);" + "-fx-border-color: red;" + "-fx-border-width: 2;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
 
         }
     }

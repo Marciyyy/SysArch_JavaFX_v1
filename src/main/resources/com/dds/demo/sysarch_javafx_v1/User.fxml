@@ -36,32 +36,32 @@
             <Circle fx:id="UserStockLED3" fill="DODGERBLUE" layoutX="139.0" layoutY="146.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
             <Circle fx:id="UserStockLED2" fill="DODGERBLUE" layoutX="139.0" layoutY="226.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
             <Circle fx:id="UserStockLED1" fill="DODGERBLUE" layoutX="139.0" layoutY="306.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Button fx:id="UserCall4" layoutX="186.0" layoutY="46.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬇">
+            <Button fx:id="UserCall4" layoutX="186.0" layoutY="46.0" mnemonicParsing="false" onAction="#UserCall4Click" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬇">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="UserCall3Down" layoutX="186.0" layoutY="126.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬇">
+            <Button fx:id="UserCall3Down" layoutX="186.0" layoutY="126.0" mnemonicParsing="false" onAction="#UserCall3DownClick" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬇">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="UserCall2Down" layoutX="186.0" layoutY="206.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬇">
+            <Button fx:id="UserCall2Down" layoutX="186.0" layoutY="206.0" mnemonicParsing="false" onAction="#UserCall2DownClick" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬇">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="UserCall1" layoutX="186.0" layoutY="286.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬆">
+            <Button fx:id="UserCall1" layoutX="186.0" layoutY="286.0" mnemonicParsing="false" onAction="#UserCall1Click" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬆">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="UserCall3Up" layoutX="252.0" layoutY="126.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬆">
+            <Button fx:id="UserCall3Up" layoutX="252.0" layoutY="126.0" mnemonicParsing="false" onAction="#UserCall3UpClick" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬆">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="UserCall2Up" layoutX="252.0" layoutY="206.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬆">
+            <Button fx:id="UserCall2Up" layoutX="252.0" layoutY="206.0" mnemonicParsing="false" onAction="#UserCall2UpClick" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬆">
                <font>
                   <Font size="16.0" />
                </font>
