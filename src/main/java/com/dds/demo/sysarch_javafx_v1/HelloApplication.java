@@ -53,7 +53,8 @@ public class HelloApplication extends Application {
         });
          */
         //Version mit logging statt println:
-        opcUaService = new OpcUaService("opc.tcp://localhost:4840/opcua/process", connected -> {
+        //opcUaService = new OpcUaService("opc.tcp://localhost:4840/opcua/process", connected -> {
+        opcUaService = new OpcUaService("opc.tcp://PC-Marcel:53530/OPCUA/SimulationServer", connected -> {
                     hmiState.setConnected(connected);
                     if (connected)
                     {
@@ -124,8 +125,8 @@ public class HelloApplication extends Application {
                 })
                 .thenRun(() ->
                 {
-                    System.out.println("OPC-UA connected and subscriptions activ und Subscriptions aktiv");
-                    logger.info("OPC-UA connected and subscriptions activ und Subscriptions aktiv");
+                    System.out.println("OPC-UA connected and subscriptions activ");
+                    logger.info("OPC-UA connected and subscriptions activ und ");
 
                     // GUI darf nur auf dem JavaFX-Thread geändert werden.
                     Platform.runLater(() ->

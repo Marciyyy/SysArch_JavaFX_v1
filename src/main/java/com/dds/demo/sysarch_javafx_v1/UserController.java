@@ -10,7 +10,8 @@ import javafx.scene.shape.Circle;
 import com.dds.demo.sysarch_javafx_v1.HelloApplication;
 import OpcUaClient.ControlNodes;
 
-
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 
 import javafx.application.Platform;
@@ -278,6 +279,27 @@ public class UserController {
          */
     }
 
+    private void removeFocusAfterOneSecond(Button button)
+    {
+        PauseTransition pause = new PauseTransition(
+                Duration.seconds(1)
+        );
+
+        pause.setOnFinished(event -> {
+            if (button.getScene() != null) {
+                button.getScene()
+                        .getRoot()
+                        .setFocusTraversable(true);
+
+                button.getScene()
+                        .getRoot()
+                        .requestFocus();
+            }
+        });
+
+        pause.play();
+    }
+
     private void resetArrivedFloorButtons() {
         int currentFloor = HelloApplication.getHmiState()
                 .currentLevelProperty()
@@ -290,25 +312,38 @@ public class UserController {
 
         switch (currentFloor) {
             case 1 -> {
-                UserCabinStock1.setStyle("");
-                UserCall1.setStyle("");
+                //UserCabinStock1.setStyle("");
+                //UserCall1.setStyle("");
+                UserCabinStock1.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                UserCall1.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
             }
 
             case 2 -> {
-                UserCabinStock2.setStyle("");
-                UserCall2Up.setStyle("");
-                UserCall2Down.setStyle("");
+                //UserCabinStock2.setStyle("");
+                //UserCall2Up.setStyle("");
+                //UserCall2Down.setStyle("");
+                UserCabinStock2.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                UserCall2Up.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                UserCall2Down.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
             }
 
             case 3 -> {
-                UserCabinStock3.setStyle("");
-                UserCall3Up.setStyle("");
-                UserCall3Down.setStyle("");
+                UserCabinStock3.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                //UserCall3Up.setStyle("");
+                //UserCall3Down.setStyle("");
+                UserCall3Up.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                UserCall3Down.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
             }
 
             case 4 -> {
-                UserCabinStock4.setStyle("");
-                UserCall4.setStyle("");
+                //UserCabinStock4.setStyle("");
+                UserCabinStock4.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                UserCall4.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
+                //UserCall4.setStyle("");
             }
 
             default -> logger.warn(
@@ -585,7 +620,7 @@ public class UserController {
                                         return null;
                                     });
                             UserCabinStock1.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-
+                            removeFocusAfterOneSecond(UserCabinStock1);
                         }
                 case 2 ->
                 {
@@ -595,8 +630,8 @@ public class UserController {
                                 logger.error("Cabin request for Level 2 failed");
                                 return null;
                             });
-                    UserCabinStock2.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-
+                    UserCabinStock2.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" +  "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                    removeFocusAfterOneSecond(UserCabinStock2);
                 }
                 case 3 ->
                 {
@@ -607,7 +642,7 @@ public class UserController {
                                 return null;
                             });
                     UserCabinStock3.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-
+                    removeFocusAfterOneSecond(UserCabinStock3);
                 }
                 case 4 ->
                 {
@@ -618,7 +653,7 @@ public class UserController {
                                 return null;
                             });
                     UserCabinStock4.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-
+                    removeFocusAfterOneSecond(UserCabinStock4);
                 }
 
             }
@@ -662,6 +697,7 @@ public class UserController {
                                     return null;
                                 });
                         UserCall1.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                        removeFocusAfterOneSecond(UserCall1);
 
                 }
                 case 2 ->
@@ -674,6 +710,7 @@ public class UserController {
                             });
                     UserCall2Up.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
 
+                    removeFocusAfterOneSecond(UserCall2Up);
                 }
                 case 3 ->
                 {
@@ -685,7 +722,7 @@ public class UserController {
                                 return null;
                             });
                     UserCall2Down.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-
+                    removeFocusAfterOneSecond(UserCall2Down);
                 }
                 case 4 ->
                 {
@@ -696,6 +733,7 @@ public class UserController {
                                 return null;
                             });
                     UserCall3Up.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                    removeFocusAfterOneSecond(UserCall3Up);
 
                 }
                 case 5 ->
@@ -707,7 +745,7 @@ public class UserController {
                                 return null;
                             });
                     UserCall3Down.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-
+                    removeFocusAfterOneSecond(UserCall3Down);
                 }
                 case 6 ->
                 {
@@ -718,7 +756,7 @@ public class UserController {
                                 return null;
                             });
                     UserCall4.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-
+                    removeFocusAfterOneSecond(UserCall4);
                 }
 
             }
