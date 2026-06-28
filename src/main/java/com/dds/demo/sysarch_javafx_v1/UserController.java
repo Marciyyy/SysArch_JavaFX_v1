@@ -223,12 +223,12 @@ public class UserController {
                         () -> {
                             if (HelloApplication.getHmiState().doorOpenProperty().get())
                             {
-                                lastDoorstate = 1;
+                                DoorAnimationAndLastState(1);
                                 return "Open";
                             }
                             else if (HelloApplication.getHmiState().doorClosedProperty().get())
                             {
-                                lastDoorstate = 2;
+                                DoorAnimationAndLastState(2);
                                 return "Closed";
                             } else
                             {
@@ -356,12 +356,11 @@ public class UserController {
     }
 
     private void resetArrivedFloorButtons() {
-        int currentFloor = HelloApplication.getHmiState()
-                .currentLevelProperty()
-                .get();
+        int currentFloor = HelloApplication.getHmiState().currentLevelProperty().get();
 
+        int currentSpeed = HelloApplication.getHmiState().mbSpeedProperty().get();
         // Während der Fahrt keine Anforderungs-Buttons zurücksetzen.
-        if (speed != 0) {
+        if (currentSpeed != 0) {
             return;
         }
 

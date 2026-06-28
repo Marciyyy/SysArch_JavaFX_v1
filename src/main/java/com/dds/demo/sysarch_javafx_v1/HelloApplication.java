@@ -53,8 +53,8 @@ public class HelloApplication extends Application {
         });
          */
         //Version mit logging statt println:
-        //opcUaService = new OpcUaService("opc.tcp://localhost:4840/opcua/process", connected -> {
-        opcUaService = new OpcUaService("opc.tcp://PC-Marcel:53530/OPCUA/SimulationServer", connected -> {
+        opcUaService = new OpcUaService("opc.tcp://localhost:4840/opcua/process", connected -> {
+        //opcUaService = new OpcUaService("opc.tcp://PC-Marcel:53530/OPCUA/SimulationServer", connected -> {            //Für lokalen prosys testserver
                     hmiState.setConnected(connected);
                     if (connected)
                     {

@@ -9,7 +9,8 @@ import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.UShort;
 public final class ControlNodes {
 
     public static final String NAMESPACE_URI =
-            "urn:example:opcua:process-namespace";
+            //"urn:example:opcua:process-namespace";    //alter name
+            "urn:example:opcua:elevator";
 
     private final int namespaceIndex;
 

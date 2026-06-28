@@ -170,12 +170,12 @@ public class SupervisorController
                         () -> {
                             if (HelloApplication.getHmiState().doorOpenProperty().get())
                             {
-                                lastDoorstate = 1;
+                                DoorAnimationAndLastState(1);
                                 return "Open";
                             }
                             else if (HelloApplication.getHmiState().doorClosedProperty().get())
                             {
-                                lastDoorstate = 2;
+                                DoorAnimationAndLastState(2);
                                 return "Closed";
                             } else
                             {
@@ -211,6 +211,31 @@ public class SupervisorController
         bindCrawlHoldButton(SupervisorUp_Crawl, SupervisorComboBoxUp);
         bindCrawlHoldButton(SupervisorDown_Crawl, SupervisorComboBoxDown);
 
+
+    }
+
+    public void DoorAnimationAndLastState(int i)
+    {
+        if(i ==1)
+        {
+            lastDoorstate = 1;
+
+            SupervisorDoor1Open.setOpacity(1);
+            SupervisorDoor2Open.setOpacity(1);
+
+            SupervisorDoor1Close.setOpacity(0);
+            SupervisorDoor2Close.setOpacity(0);
+        }
+        else if (i == 2)
+        {
+            lastDoorstate = 2;
+            SupervisorDoor1Open.setOpacity(0);
+            SupervisorDoor2Open.setOpacity(0);
+
+            SupervisorDoor1Close.setOpacity(1);
+            SupervisorDoor2Close.setOpacity(1);
+
+        }
 
     }
 
