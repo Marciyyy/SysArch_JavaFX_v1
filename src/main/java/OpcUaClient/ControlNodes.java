@@ -47,6 +47,10 @@ public final class ControlNodes {
     public final NodeId doorClosed;
     public final NodeId motorReady;
 
+    public final NodeId mbCycles;
+    public final NodeId mbAufzugId;
+    public final NodeId mbSpeed;
+
     private ControlNodes(int namespaceIndex) {
         this.namespaceIndex = namespaceIndex;
 
@@ -81,6 +85,10 @@ public final class ControlNodes {
         doorOpen = new NodeId(namespaceIndex, "DoorOpen");
         doorClosed = new NodeId(namespaceIndex, "DoorClosed");
         motorReady = new NodeId(namespaceIndex, "MotorReady");
+
+        mbCycles = new NodeId(namespaceIndex, "Cycles");
+        mbAufzugId = new NodeId(namespaceIndex, "AufzugID");
+        mbSpeed = new NodeId(namespaceIndex, "Speed");
     }
 
     public static ControlNodes create(OpcUaClient client) throws UaException {

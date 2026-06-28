@@ -1,6 +1,7 @@
 package com.dds.demo.sysarch_javafx_v1;
 
 import OpcUaClient.ControlNodes;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -79,6 +80,14 @@ public class SupervisorController
     private Label SupervisorStatusMotorState;
     @FXML
     private Button SupervisorResetSimulation;
+    @FXML
+    private Label SupervisorStatusElevatorID;
+    @FXML
+    private Label SupervisorStatusElevatorState;
+
+    private int lastDoorstate = 2;
+    //1: door open
+    //2: door closed
 
     ControlNodes nodes = HelloApplication.getOpcUaService().getControlNodes();
 
@@ -113,6 +122,11 @@ public class SupervisorController
 
         //Speed und Door state hinschreiben!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+        SupervisorStatusSpeedLabel.textProperty().bind(
+                HelloApplication.getHmiState()
+                        .mbSpeedProperty()
+                        .asString()
+        );
 
         //Motor state:
         SupervisorStatusMotorState.textProperty().bind(
@@ -124,8 +138,62 @@ public class SupervisorController
         //PLC Cycle anzeige:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         SupervisorStatusPLC.textProperty().bind(
                 HelloApplication.getHmiState()
-                        .motorReadyProperty()
+                        .mbCyclesProperty()
                         .asString()
+        );
+
+        SupervisorStatusElevatorID.textProperty().bind(
+                HelloApplication.getHmiState()
+                        .mbAufzugIdProperty()
+                        .asString()
+        );
+
+        SupervisorStatusElevatorState.textProperty().bind(
+                HelloApplication.getHmiState()
+                        .elevatorStateProperty()
+        );
+
+
+        //Door state zu Beginn setzten, falls User Scene etwas geändert hat
+        if(HelloApplication.getHmiState().doorOpenProperty().get())
+        {
+            lastDoorstate = 1;
+        }
+        else if (HelloApplication.getHmiState().doorClosedProperty().get())
+        {
+            lastDoorstate = 2;
+        }
+
+        //Door state label:
+        SupervisorStatusDoorLabel.textProperty().bind(
+                Bindings.createStringBinding(
+                        () -> {
+                            if (HelloApplication.getHmiState().doorOpenProperty().get())
+                            {
+                                lastDoorstate = 1;
+                                return "Open";
+                            }
+                            else if (HelloApplication.getHmiState().doorClosedProperty().get())
+                            {
+                                lastDoorstate = 2;
+                                return "Closed";
+                            } else
+                            {
+                                if(lastDoorstate ==  1)
+                                {
+                                    return "Closing";
+                                }
+                                else if(lastDoorstate == 2)
+                                {
+                                    return "Opening";
+                                }
+
+                                return "---";
+                            }
+                        },
+                        HelloApplication.getHmiState().doorOpenProperty(),
+                        HelloApplication.getHmiState().doorClosedProperty()
+                )
         );
 
 
@@ -154,17 +222,23 @@ public class SupervisorController
         SupervisorStockLED3.setFill(javafx.scene.paint.Color.BLUE);
         SupervisorStockLED4.setFill(javafx.scene.paint.Color.BLUE);
 
-        // Den Kreis des aktuellen Stockwerks grün setzen.
-        switch (currentLevel) {
-            case 1 -> SupervisorStockLED1.setFill(javafx.scene.paint.Color.GREEN);
-            case 2 -> SupervisorStockLED2.setFill(javafx.scene.paint.Color.GREEN);
-            case 3 -> SupervisorStockLED3.setFill(javafx.scene.paint.Color.GREEN);
-            case 4 -> SupervisorStockLED4.setFill(javafx.scene.paint.Color.GREEN);
+        int currentSpeed = HelloApplication.getHmiState().mbSpeedProperty().get();
 
-            default ->
+        // Den Kreis des aktuellen Stockwerks grün setzen, wenn current Level passt und speed == 0.
+        if (currentSpeed == 0)
+        {
+            switch (currentLevel)
             {
-                System.err.println("Invalid FloorLevel has been send by the OPC UA Server: " + currentLevel);
-                logger.warn("Invalid FloorLevel has been send by the OPC UA Server");
+                case 1 -> SupervisorStockLED1.setFill(javafx.scene.paint.Color.GREEN);
+                case 2 -> SupervisorStockLED2.setFill(javafx.scene.paint.Color.GREEN);
+                case 3 -> SupervisorStockLED3.setFill(javafx.scene.paint.Color.GREEN);
+                case 4 -> SupervisorStockLED4.setFill(javafx.scene.paint.Color.GREEN);
+
+                default ->
+                {
+                    System.err.println("Invalid FloorLevel has been sent by the OPC UA Server: " + currentLevel);
+                    logger.warn("Invalid FloorLevel has been sent by the OPC UA Server: {}", currentLevel);
+                }
             }
         }
     }

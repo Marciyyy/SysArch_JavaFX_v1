@@ -120,6 +120,24 @@ public class HelloApplication extends Application {
                             dataValue -> updateBoolean(
                                     dataValue,
                                     hmiState::setMotorReady
+                            ),
+
+                            nodes.mbCycles,
+                            dataValue -> updateInteger(
+                                    dataValue,
+                                    hmiState::setMbCycles
+                            ),
+
+                            nodes.mbSpeed,
+                            dataValue -> updateInteger(
+                                    dataValue,
+                                    hmiState::setMbSpeed
+                            ),
+
+                            nodes.mbAufzugId,
+                            dataValue -> updateInteger(
+                                    dataValue,
+                                    hmiState::setMbAufzugId
                             )
                     ));
                 })

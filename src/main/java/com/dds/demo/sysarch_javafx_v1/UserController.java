@@ -1,6 +1,7 @@
 package com.dds.demo.sysarch_javafx_v1;
 
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -107,6 +108,10 @@ public class UserController {
     //TEst
     private boolean a;
 
+    private int lastDoorstate = 2;
+    //1 = door open
+    //2 = door closed
+
 
 
 
@@ -131,6 +136,7 @@ public class UserController {
                         .currentLevelProperty()
                         .asString()
         );
+
 
 
         //Neue method:
@@ -193,8 +199,58 @@ public class UserController {
                         .asString()
         );
 
+        //Speed:
+        UserStatusSpeedLabel.textProperty().bind(
+                HelloApplication.getHmiState()
+                        .mbSpeedProperty()
+                        .asString()
+        );
 
-        //Neu:
+
+        //Zu Beginn den lastDoorstate definieren, falls die Supervisor scene etwas verändert hat
+        if(HelloApplication.getHmiState().doorOpenProperty().get())
+        {
+            lastDoorstate = 1;
+        }
+        else if (HelloApplication.getHmiState().doorClosedProperty().get())
+        {
+            lastDoorstate = 2;
+        }
+
+        //Door state Label
+        UserStatusDoorLabel.textProperty().bind(
+                Bindings.createStringBinding(
+                        () -> {
+                            if (HelloApplication.getHmiState().doorOpenProperty().get())
+                            {
+                                lastDoorstate = 1;
+                                return "Open";
+                            }
+                            else if (HelloApplication.getHmiState().doorClosedProperty().get())
+                            {
+                                lastDoorstate = 2;
+                                return "Closed";
+                            } else
+                            {
+                                if(lastDoorstate ==  1)
+                                {
+                                    return "Closing";
+                                }
+                                else if(lastDoorstate == 2)
+                                {
+                                    return "Opening";
+                                }
+
+                                return "---";
+                            }
+                        },
+                        HelloApplication.getHmiState().doorOpenProperty(),
+                        HelloApplication.getHmiState().doorClosedProperty()
+                )
+        );
+
+
+        //Hillfe um allgemien verschiedene dinge anzeigen lassen:
         /*
         currentFloorLabel.textProperty().bind(
         HelloApplication.getHmiState()
@@ -223,6 +279,30 @@ public class UserController {
 
     }
 
+    public void DoorAnimationAndLastState(int i)
+    {
+        if(i ==1)
+        {
+            lastDoorstate = 1;
+            UserDoor1Open.setOpacity(1);
+            UserDoor2Open.setOpacity(1);
+
+            UserDoor1Close.setOpacity(0);
+            UserDoor2Close.setOpacity(0);
+        }
+        else if (i == 2)
+        {
+            lastDoorstate = 2;
+            UserDoor1Open.setOpacity(0);
+            UserDoor2Open.setOpacity(0);
+
+            UserDoor1Close.setOpacity(1);
+            UserDoor2Close.setOpacity(1);
+
+        }
+
+    }
+
     //Method um die Floor LEDS richtig anzeigen zu lassen:
     private void showCurrentFloor(int currentLevel) {
         // Zuerst alle Kreise blau setzen.
@@ -231,52 +311,27 @@ public class UserController {
         UserStockLED3.setFill(javafx.scene.paint.Color.BLUE);
         UserStockLED4.setFill(javafx.scene.paint.Color.BLUE);
 
-        // Den Kreis des aktuellen Stockwerks grün setzen.
-        switch (currentLevel)
-        {
-            case 1 -> UserStockLED1.setFill(javafx.scene.paint.Color.GREEN);
-            case 2 -> UserStockLED2.setFill(javafx.scene.paint.Color.GREEN);
-            case 3 -> UserStockLED3.setFill(javafx.scene.paint.Color.GREEN);
-            case 4 -> UserStockLED4.setFill(javafx.scene.paint.Color.GREEN);
+        int currentSpeed = HelloApplication.getHmiState().mbSpeedProperty().get();
 
-            default ->
+
+        // Den Kreis des aktuellen Stockwerks grün setzen, wenn current Level passt und speed == 0.
+        if (currentSpeed == 0)
+        {
+            switch (currentLevel)
             {
-                System.err.println("Invalid FloorLevel has been send by the OPC UA Server: " + currentLevel);
-                logger.warn("Invalid FloorLevel has been send by the OPC UA Server");
+                case 1 -> UserStockLED1.setFill(javafx.scene.paint.Color.GREEN);
+                case 2 -> UserStockLED2.setFill(javafx.scene.paint.Color.GREEN);
+                case 3 -> UserStockLED3.setFill(javafx.scene.paint.Color.GREEN);
+                case 4 -> UserStockLED4.setFill(javafx.scene.paint.Color.GREEN);
+
+                default ->
+                {
+                    System.err.println("Invalid FloorLevel has been sent by the OPC UA Server: " + currentLevel);
+                    logger.warn("Invalid FloorLevel has been sent by the OPC UA Server: {}", currentLevel);
+                }
             }
         }
 
-        //Entfrtn und stattdessen resetArrivedFloorButtons eingesetzt
-        /*
-    //Button Farben zurücksetzten:
-        switch (currentLevel)
-        {
-            case 1 ->
-            {
-                UserCabinStock1.setStyle("-fx-background-color: white;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                UserCall1.setStyle("-fx-background-color: white;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-            }
-            case 2 ->
-            {
-                UserCall2Up.setStyle("-fx-background-color: white;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                UserCall2Down.setStyle("-fx-background-color: white;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                UserCabinStock2.setStyle("-fx-background-color: white;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-            }
-            case 3 ->
-            {
-                UserCall3Up.setStyle("-fx-background-color: white;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                UserCall3Down.setStyle("-fx-background-color: white;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                UserCabinStock3.setStyle("-fx-background-color: white;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-            }
-            case 4 ->
-            {
-                UserCall4.setStyle("-fx-background-color: white;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                UserCabinStock4.setStyle("-fx-background-color: white;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-            }
-
-            default -> System.err.println("Ungültiges Stockwerk vom OPC-UA-Server: " + currentLevel);
-        }
-         */
     }
 
     private void removeFocusAfterOneSecond(Button button)
@@ -417,23 +472,35 @@ public class UserController {
     protected  void UserCabinOpenClick() throws Exception
     {
         logger.info("UserCabinOpen Button clicked");
-        boolean doorOpen = HelloApplication.getHmiState()
-                .doorOpenProperty()
-                .get();
+        boolean doorOpen = HelloApplication.getHmiState().doorOpenProperty().get();
 
-        boolean doorClosed = HelloApplication.getHmiState()
-                .doorClosedProperty()
-                .get();
+        boolean doorClosed = HelloApplication.getHmiState().doorClosedProperty().get();
+
+        int currentSpeed = HelloApplication.getHmiState().mbSpeedProperty().get();
 
         //Speed auslesen!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-        if(doorOpen)
+        //Schauen ob türe breits offen ist
+        if(doorOpen && (currentSpeed == 0) )
         {
             logger.info("Door couldn't be opend because it's already open");
             return;
         }
+        //Checken ob sich die tür aktuell öffnet oder schliest:
+        if(!doorOpen && !doorClosed)
+        {
+            if(lastDoorstate == 1)
+            {
+                logger.info("Door couldn't be opend because it's currently closing");
+                return;
+            }
+            else if (lastDoorstate == 2)
+            {
+                logger.info("Door is already currently opening");
+                return;
+            }
+        }
 
-        if( (speed == 0) && (doorClosed == true) )
+        if( (currentSpeed == 0) && (doorClosed == true) )
         {
 
             HelloApplication.getOpcUaService().write(nodes.openDoor, true).thenRun(() ->
@@ -442,19 +509,6 @@ public class UserController {
                         logger.error("Open Door signal couldn't be send");
                         return null;
                     });
-
-            //Animation:
-            try {
-                UserDoor1Open.setOpacity(1);
-                UserDoor2Open.setOpacity(1);
-
-                UserDoor1Close.setOpacity(0);
-                UserDoor2Close.setOpacity(0);
-                logger.info("Opening Door animation successful");
-            } catch (Exception exception) {
-                logger.error("Opening Door animation failed", exception);
-            }
-
         }
 
     }
@@ -463,46 +517,42 @@ public class UserController {
     protected  void UserCabinCloseClick() throws Exception
     {
         logger.info("UserCabinClose Button clicked");
-        boolean doorOpen = HelloApplication.getHmiState()
-                .doorOpenProperty()
-                .get();
+        boolean doorOpen = HelloApplication.getHmiState().doorOpenProperty().get();
 
-        boolean doorClosed = HelloApplication.getHmiState()
-                .doorClosedProperty()
-                .get();
+        boolean doorClosed = HelloApplication.getHmiState().doorClosedProperty().get();
+
+        int currentSpeed = HelloApplication.getHmiState().mbSpeedProperty().get();
 
         //Speed auslesen!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        if(doorClosed)
+        if(doorClosed && (currentSpeed == 0) )
         {
             logger.info("Door couldn't be closed because it's already closed");
             return;
         }
 
-        if( (speed == 0) && (doorOpen == true) )
+        if(!doorOpen && !doorClosed && (currentSpeed == 0) )
         {
+            if(lastDoorstate == 1)
+            {
+                logger.info("Door is already currently closing");
+                return;
+            }
+            else if (lastDoorstate == 2)
+            {
+                logger.info("Door couldn't be opend because it's currently opening");
+                return;
+            }
+        }
 
+        if( (currentSpeed == 0) && (doorOpen == true) )
+        {
             HelloApplication.getOpcUaService().write(nodes.closeDoor, true).thenRun(() ->
                             logger.info("Close Door signal send via OPC UA"))
                     .exceptionally(error -> {
                         logger.error("Close Door signal couldn't be send");
                         return null;
                     });
-
-
-            //Animation:
-            try {
-                UserDoor1Open.setOpacity(0);
-                UserDoor2Open.setOpacity(0);
-
-                UserDoor1Close.setOpacity(1);
-                UserDoor2Close.setOpacity(1);
-
-                logger.info("Closing Door animation successful");
-            } catch (Exception exception) {
-                logger.error("Closing Door animation failed", exception);
-            }
-
         }
 
     }
@@ -589,30 +639,28 @@ public class UserController {
 
     private void FloorCheck(int FloorLevel)
     {
-        //EInmal speed un einmal current level auslesen
-        int currentFloor = HelloApplication.getHmiState()
-                .currentLevelProperty()
-                .get();
+        //Einmal speed und current level auslesen
+        int currentFloor = HelloApplication.getHmiState().currentLevelProperty().get();
 
-        //hier noch speed auslesen:
+        int currentSpeed = HelloApplication.getHmiState().mbSpeedProperty().get();
+
 
 
         //Wenn aufzug gerade an diesem stockwerk steht, dann nix machen:
-        if (currentFloor == FloorLevel && speed == 0)
+        if ( (currentFloor == FloorLevel ) && (currentSpeed == 0 ))
         {
             logger.info("FloorLevel request denied. Elevator already at Level: {}", FloorLevel);
             return;
         }
 
-        //Wenn aufzug entweeder nicht auf dem stock ist oder zwar noch der stock angezeigt wird aber er sich shcon wieder bewegt:
-        if( (currentFloor != FloorLevel) || (currentFloor == FloorLevel && speed != 0) )
+        //Wenn aufzug entweeder nicht auf dem stock ist oder zwar noch der stock angezeigt wird aber er sich schon wieder bewegt:
+        if( (currentFloor != FloorLevel) || ( (currentFloor == FloorLevel) && (currentSpeed != 0) ) )
         {
             //Richtige Variable setzten:
             switch (FloorLevel)
             {
                 case 1 ->
                         {
-
                             HelloApplication.getOpcUaService().write(nodes.insideLevel1, true).thenRun(() ->
                                             logger.info("Cabin request send for FloorLevel {}", FloorLevel))
                                     .exceptionally(error -> {
@@ -667,23 +715,23 @@ public class UserController {
 
     private void FloorCheckOutside(int FloorLevel, int UpDown)
     {
-        //EInmal speed un einmal current level auslesen
-        int currentFloor = HelloApplication.getHmiState()
-                .currentLevelProperty()
-                .get();
+        //Einmal speed und einmal current level auslesen
+        int currentFloor = HelloApplication.getHmiState().currentLevelProperty().get();
 
-        //hier noch speed auslesen:
+        int currentSpeed = HelloApplication.getHmiState().mbSpeedProperty().get();
+
+
 
 
         //Wenn aufzug gerade an diesem stockwerk steht, dann nix machen:
-        if (currentFloor == FloorLevel && speed == 0)
+        if ( (currentFloor == FloorLevel) && (currentSpeed == 0) )
         {
             logger.info("Floor request denied. Elevator already at Floor: {}", FloorLevel);
             return;
         }
 
         //Wenn aufzug entweeder nicht auf dem stock ist oder zwar noch der stock angezeigt wird aber er sich shcon wieder bewegt:
-        if( (currentFloor != FloorLevel) || (currentFloor == FloorLevel && speed != 0) )
+        if( (currentFloor != FloorLevel) || ( (currentFloor == FloorLevel) && (currentSpeed != 0) ) )
         {
             //Richtige Variable setzten:
             switch (UpDown)
