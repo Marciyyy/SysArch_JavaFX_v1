@@ -91,42 +91,42 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="444.0" layoutY="40.0" prefHeight="33.0" prefWidth="113.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" AnchorPane.leftAnchor="444.0" AnchorPane.topAnchor="40.0">
+      <AnchorPane layoutX="444.0" layoutY="40.0" prefHeight="34.0" prefWidth="99.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" AnchorPane.leftAnchor="444.0" AnchorPane.topAnchor="40.0">
          <children>
             <Label layoutX="11.0" layoutY="3.0" prefHeight="26.0" prefWidth="82.0" text="Current floor:">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="UserStatusCurrentFloor" layoutX="90.0" layoutY="3.0" prefHeight="26.0" prefWidth="20.0" text="3">
+            <Label fx:id="UserStatusCurrentFloor" layoutX="90.0" layoutY="3.0" prefHeight="26.0" prefWidth="13.0" text="3">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="568.0" layoutY="40.0" prefHeight="33.0" prefWidth="113.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" AnchorPane.leftAnchor="568.0" AnchorPane.topAnchor="40.0">
+      <AnchorPane layoutX="558.0" layoutY="40.0" prefHeight="34.0" prefWidth="82.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" AnchorPane.leftAnchor="558.0" AnchorPane.topAnchor="40.0">
          <children>
             <Label layoutX="11.0" layoutY="3.0" prefHeight="26.0" prefWidth="82.0" text="Next floor:">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="UserStatusNextFloor" layoutX="75.0" layoutY="3.0" prefHeight="26.0" prefWidth="20.0" text="3">
+            <Label fx:id="UserStatusNextFloor" layoutX="75.0" layoutY="3.0" prefHeight="26.0" prefWidth="14.0" text="3">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="692.0" layoutY="40.0" prefHeight="33.0" prefWidth="162.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" AnchorPane.leftAnchor="692.0" AnchorPane.topAnchor="40.0">
+      <AnchorPane layoutX="664.0" layoutY="40.0" prefHeight="34.0" prefWidth="190.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" AnchorPane.leftAnchor="664.0" AnchorPane.topAnchor="40.0">
          <children>
             <Label layoutX="11.0" layoutY="3.0" prefHeight="26.0" prefWidth="114.0" text="Current direction:">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="UserStatusShowDirection" layoutX="115.0" layoutY="3.0" prefHeight="26.0" prefWidth="40.0" text="Idle">
+            <Label fx:id="UserStatusShowDirection" layoutX="115.0" layoutY="3.0" prefHeight="26.0" prefWidth="72.0" text="DontCare">
                <font>
                   <Font size="13.0" />
                </font>
@@ -172,12 +172,12 @@
       <Button fx:id="UserResetSimulation" layoutX="15.0" layoutY="565.0" mnemonicParsing="false" onAction="#UserResetSimulationClick" prefHeight="26.0" prefWidth="134.0" text="Reset Simulation" />
       <AnchorPane layoutX="444.0" layoutY="514.0" prefHeight="34.0" prefWidth="142.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;">
          <children>
-            <Label layoutX="11.0" layoutY="3.0" prefHeight="26.0" prefWidth="99.0" text="Speed [m/s]:">
+            <Label layoutX="11.0" layoutY="3.0" prefHeight="26.0" prefWidth="99.0" text="Speed [cm/s]:">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="UserStatusSpeedLabel" layoutX="89.0" layoutY="3.0" prefHeight="26.0" prefWidth="49.0" text="1,0000">
+            <Label fx:id="UserStatusSpeedLabel" layoutX="90.0" layoutY="4.0" prefHeight="26.0" prefWidth="40.0" text="1">
                <font>
                   <Font size="13.0" />
                </font>

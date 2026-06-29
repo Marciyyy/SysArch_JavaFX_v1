@@ -67,9 +67,7 @@ public final class OpcUaService {
                 connected = true;
                 updateConnectionState(true);
 
-                System.out.println(
-                        "OPC-UA verbunden. Namespace-Index: "
-                                + controlNodes.getNamespaceIndex()
+                System.out.println("OPC-UA verbunden. Namespace-Index: " + controlNodes.getNamespaceIndex()
                 );
 
             } catch (Exception e) {
@@ -241,6 +239,7 @@ public final class OpcUaService {
         }
     }
 
+    //Unnötig, da mit subscriptions gearbeitet wird:
     public CompletableFuture<DataValue> read(NodeId nodeId) {
         return CompletableFuture.supplyAsync(() -> {
             requireConnected();
