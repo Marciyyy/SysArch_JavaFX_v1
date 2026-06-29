@@ -247,11 +247,10 @@ public class SupervisorController
         SupervisorStockLED3.setFill(javafx.scene.paint.Color.BLUE);
         SupervisorStockLED4.setFill(javafx.scene.paint.Color.BLUE);
 
-        int currentSpeed = HelloApplication.getHmiState().mbSpeedProperty().get();
 
-        // Den Kreis des aktuellen Stockwerks grün setzen, wenn current Level passt und speed == 0.
-        if (currentSpeed == 0)
-        {
+
+        // Den Kreis des aktuellen Stockwerks grün setzen, wenn current Level passt
+
             switch (currentLevel)
             {
                 case 1 -> SupervisorStockLED1.setFill(javafx.scene.paint.Color.GREEN);
@@ -265,7 +264,7 @@ public class SupervisorController
                     logger.warn("Invalid FloorLevel has been sent by the OPC UA Server: {}", currentLevel);
                 }
             }
-        }
+
     }
 
 

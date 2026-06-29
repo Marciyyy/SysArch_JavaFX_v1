@@ -311,13 +311,11 @@ public class UserController {
         UserStockLED3.setFill(javafx.scene.paint.Color.BLUE);
         UserStockLED4.setFill(javafx.scene.paint.Color.BLUE);
 
-        int currentSpeed = HelloApplication.getHmiState().mbSpeedProperty().get();
 
 
-        // Den Kreis des aktuellen Stockwerks grün setzen, wenn current Level passt und speed == 0.
-        if (currentSpeed == 0)
-        {
-            switch (currentLevel)
+
+        // Den Kreis des aktuellen Stockwerks grün setzen, wenn current Level passt
+        switch (currentLevel)
             {
                 case 1 -> UserStockLED1.setFill(javafx.scene.paint.Color.GREEN);
                 case 2 -> UserStockLED2.setFill(javafx.scene.paint.Color.GREEN);
@@ -330,7 +328,7 @@ public class UserController {
                     logger.warn("Invalid FloorLevel has been sent by the OPC UA Server: {}", currentLevel);
                 }
             }
-        }
+
 
     }
 
@@ -400,10 +398,7 @@ public class UserController {
                 //UserCall4.setStyle("");
             }
 
-            default -> logger.warn(
-                    "Cannot reset buttons: invalid floor {}",
-                    currentFloor
-            );
+            default -> logger.warn("Cannot reset buttons: invalid floor {}", currentFloor);
         }
     }
 
