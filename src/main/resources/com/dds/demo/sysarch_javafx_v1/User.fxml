@@ -12,10 +12,10 @@
       <Button fx:id="UserReturnToLogInButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#UserReturnToLoginButtonClick" text="Return to LogIn" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
       <AnchorPane layoutX="42.6" layoutY="76.8" prefHeight="316.0" prefWidth="272.0" style="-fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: white;" AnchorPane.leftAnchor="42.6" AnchorPane.topAnchor="76.8">
          <children>
-            <Button fx:id="UserCabinStock1" layoutX="67.0" layoutY="78.0" mnemonicParsing="false" onAction="#UserCabinStock1Click" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="1" />
-            <Button fx:id="UserCabinStock2" layoutX="165.0" layoutY="78.0" mnemonicParsing="false" onAction="#UserCabinStock2Click" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="2" />
-            <Button fx:id="UserCabinStock3" layoutX="67.0" layoutY="139.0" mnemonicParsing="false" onAction="#UserCabinStock3Click" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="3" />
-            <Button fx:id="UserCabinStock4" layoutX="165.0" layoutY="139.0" mnemonicParsing="false" onAction="#UserCabinStock4Click" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="4" />
+            <Button fx:id="UserCabinStock1" layoutX="67.0" layoutY="78.0" mnemonicParsing="false" onAction="#UserCabinStock1Click" onMouseEntered="#UserCallAndCabinButtonsHoverOn" onMouseExited="#UserCallAndCabinButtonsHoverOff" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5; -fx-background-color: #f4f4f4;" text="1" />
+            <Button fx:id="UserCabinStock2" layoutX="165.0" layoutY="78.0" mnemonicParsing="false" onAction="#UserCabinStock2Click" onMouseEntered="#UserCallAndCabinButtonsHoverOn" onMouseExited="#UserCallAndCabinButtonsHoverOff" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5; -fx-background-color: #f4f4f4;" text="2" />
+            <Button fx:id="UserCabinStock3" layoutX="67.0" layoutY="139.0" mnemonicParsing="false" onAction="#UserCabinStock3Click" onMouseEntered="#UserCallAndCabinButtonsHoverOn" onMouseExited="#UserCallAndCabinButtonsHoverOff" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="3" />
+            <Button fx:id="UserCabinStock4" layoutX="165.0" layoutY="139.0" mnemonicParsing="false" onAction="#UserCabinStock4Click" onMouseEntered="#UserCallAndCabinButtonsHoverOn" onMouseExited="#UserCallAndCabinButtonsHoverOff" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="4" />
             <Button fx:id="UserCabinOpen" layoutX="67.0" layoutY="200.0" mnemonicParsing="false" onAction="#UserCabinOpenClick" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="&lt;|&gt;" />
             <Button fx:id="UserCabinClose" layoutX="165.0" layoutY="200.0" mnemonicParsing="false" onAction="#UserCabinCloseClick" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="&gt;|&lt;" />
             <Button fx:id="UserCabinStopp" layoutX="67.0" layoutY="270.0" mnemonicParsing="false" onAction="#UserCabinStoppClick" prefHeight="26.0" prefWidth="141.0" style="-fx-border-color: red; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-radius: 5;" text="Emergency Stopp" textFill="RED">
@@ -36,32 +36,32 @@
             <Circle fx:id="UserStockLED3" fill="DODGERBLUE" layoutX="139.0" layoutY="146.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
             <Circle fx:id="UserStockLED2" fill="DODGERBLUE" layoutX="139.0" layoutY="226.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
             <Circle fx:id="UserStockLED1" fill="DODGERBLUE" layoutX="139.0" layoutY="306.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Button fx:id="UserCall4" layoutX="186.0" layoutY="46.0" mnemonicParsing="false" onAction="#UserCall4Click" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬇">
+            <Button fx:id="UserCall4" layoutX="186.0" layoutY="46.0" mnemonicParsing="false" onAction="#UserCall4Click" onMouseEntered="#UserCallAndCabinButtonsHoverOn" onMouseExited="#UserCallAndCabinButtonsHoverOff" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬇">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="UserCall3Down" layoutX="186.0" layoutY="126.0" mnemonicParsing="false" onAction="#UserCall3DownClick" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬇">
+            <Button fx:id="UserCall3Down" layoutX="186.0" layoutY="126.0" mnemonicParsing="false" onAction="#UserCall3DownClick" onMouseEntered="#UserCallAndCabinButtonsHoverOn" onMouseExited="#UserCallAndCabinButtonsHoverOff" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬇">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="UserCall2Down" layoutX="186.0" layoutY="206.0" mnemonicParsing="false" onAction="#UserCall2DownClick" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬇">
+            <Button fx:id="UserCall2Down" layoutX="186.0" layoutY="206.0" mnemonicParsing="false" onAction="#UserCall2DownClick" onMouseEntered="#UserCallAndCabinButtonsHoverOn" onMouseExited="#UserCallAndCabinButtonsHoverOff" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬇">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="UserCall1" layoutX="186.0" layoutY="286.0" mnemonicParsing="false" onAction="#UserCall1Click" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬆">
+            <Button fx:id="UserCall1" layoutX="186.0" layoutY="286.0" mnemonicParsing="false" onAction="#UserCall1Click" onMouseEntered="#UserCallAndCabinButtonsHoverOn" onMouseExited="#UserCallAndCabinButtonsHoverOff" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬆">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="UserCall3Up" layoutX="252.0" layoutY="126.0" mnemonicParsing="false" onAction="#UserCall3UpClick" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬆">
+            <Button fx:id="UserCall3Up" layoutX="252.0" layoutY="126.0" mnemonicParsing="false" onAction="#UserCall3UpClick" onMouseEntered="#UserCallAndCabinButtonsHoverOn" onMouseExited="#UserCallAndCabinButtonsHoverOff" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬆">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="UserCall2Up" layoutX="252.0" layoutY="206.0" mnemonicParsing="false" onAction="#UserCall2UpClick" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬆">
+            <Button fx:id="UserCall2Up" layoutX="252.0" layoutY="206.0" mnemonicParsing="false" onAction="#UserCall2UpClick" onMouseEntered="#UserCallAndCabinButtonsHoverOn" onMouseExited="#UserCallAndCabinButtonsHoverOff" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-width: 1.5; -fx-border-radius: 5; -fx-background-radius: 5;" text="⬆">
                <font>
                   <Font size="16.0" />
                </font>

@@ -5,6 +5,7 @@ import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 
@@ -400,6 +401,47 @@ public class UserController {
 
             default -> logger.warn("Cannot reset buttons: invalid floor {}", currentFloor);
         }
+    }
+
+
+    //DIe folgenden Zwei funktionen sorgen dafür, dass wenn man mit der Maus übeer einen Button fährt/hover, sich dessen farbe anpasst
+    //Die farbe wird dann dement sprechend angepasst, ob der button gedrückt wurde oder nicht
+    @FXML
+    private void UserCallAndCabinButtonsHoverOn(MouseEvent event)
+    {
+        Button button = (Button) event.getSource();
+        String style = button.getStyle();
+
+        //Button gedrückt
+        if(style.contains("rgba(255, 165, 0, 0.3)"))
+        {
+            button.setStyle("-fx-background-color: #FFD700;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
+        }
+        //Button nicht gedrückt
+        else  if (style.contains("#f4f4f4"))
+        {
+            button.setStyle("-fx-background-color: white;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+        }
+    }
+
+    @FXML
+    private void UserCallAndCabinButtonsHoverOff(MouseEvent event)
+    {
+        Button button = (Button) event.getSource();
+        String style = button.getStyle();
+
+        if(style.contains("#FFD700"))
+        {
+            button.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+        }
+        else  if (style.contains("white"))
+        {
+            button.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+        }
+
+
+        //UserCabinStock3.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
     }
 
 
