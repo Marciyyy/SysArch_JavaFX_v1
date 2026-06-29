@@ -10,7 +10,7 @@ public final class ControlNodes {
 
     public static final String NAMESPACE_URI =
             //"urn:example:opcua:process-namespace";    //alter name
-            "urn:example:opcua:elevator";
+            "urn:example:opcua:process-namespace";
 
     private final int namespaceIndex;
 
@@ -88,7 +88,7 @@ public final class ControlNodes {
         motorReady = new NodeId(namespaceIndex, "MotorReady");
 
         mbCycles = new NodeId(namespaceIndex, "Cycles");
-        mbAufzugId = new NodeId(namespaceIndex, "AufzugID");
+        mbAufzugId = new NodeId(namespaceIndex, "AufzugId");
         mbSpeed = new NodeId(namespaceIndex, "Speed");
     }
 

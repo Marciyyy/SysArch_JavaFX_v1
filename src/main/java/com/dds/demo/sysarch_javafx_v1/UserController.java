@@ -426,6 +426,20 @@ public class UserController {
                     logger.error("Sending the reset Simulation signal failed");
                     return null;
                 });
+        UserCabinStock1.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+        UserCabinStock2.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+        UserCabinStock3.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+        UserCabinStock4.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+        UserCall1.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+        UserCall2Down.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+        UserCall2Up.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+        UserCall3Down.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+        UserCall3Up.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+        UserCall4.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
+        isEmergency = false;
+        UserCabinStopp.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: red;" + "-fx-border-width: 2;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+
 
 
 
@@ -562,7 +576,7 @@ public class UserController {
                     .thenRun(() ->
                             {
                                 logger.info("Emergency Stop set to false");
-                                UserCabinStopp.setStyle("-fx-background-color: white;" + "-fx-border-color: red;" + "-fx-border-width: 2;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                                UserCabinStopp.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: red;" + "-fx-border-width: 2;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
                                 isEmergency = false;
                             })
                     .exceptionally(error -> {
