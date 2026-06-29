@@ -46,13 +46,7 @@ public class HelloApplication extends Application {
         //opcUaService = new OpcUaService("opc.tcp://192.168.1.50:12686/milo", connected -> System.out.println(connected ? "OPC-UA verbunden." : "OPC-UA nicht verbunden."));
 
         //!!!!!!Hier später statt /milo: /opcua/process!!!!!!; Da beide programme später über ssh eapc165 laufen passt das, sonst müsste man hier noch riuchtigee IP statt localhost angeben
-       // VErsion ohne logging:
-        /*
-        opcUaService = new OpcUaService("opc.tcp://localhost:4840/opcua/process", connected -> {
-            hmiState.setConnected(connected);
-            System.out.println(connected ? "OPC-UA connected." : "OPC-UA not connected.");
-        });
-         */
+
         //Version mit logging statt println:
         opcUaService = new OpcUaService("opc.tcp://localhost:4840/opcua/process", connected -> {
         //opcUaService = new OpcUaService("opc.tcp://PC-Marcel:53530/OPCUA/SimulationServer", connected -> {            //Für lokalen prosys testserver
@@ -68,14 +62,7 @@ public class HelloApplication extends Application {
         );
 
 
-
-        // Verbindung im Hintergrund starten.
-        // Die GUI wird dadurch nicht blockiert.
-
-
-
-        //Richtige connect Mehtod für die spätere implementierung
-
+        // Verbindung wird im Hintergrundthread "opcExecutor" gestartet. Die GUI wird dadurch nicht blockiert.
         opcUaService.connect()
                 .thenCompose(unused -> {
                     ControlNodes nodes = opcUaService.getControlNodes();
@@ -224,6 +211,7 @@ public class HelloApplication extends Application {
 
 
 
+    //Folgende methods überprüfen, ob es sich bei den übertragenen Werten der Subscription Nodes auch wirklich um die richtigen Datentypen handelt
     private static void updateBoolean(DataValue dataValue, Consumer<Boolean> setter)
     {
         if (!dataValue.statusCode().isGood())
@@ -277,13 +265,4 @@ public class HelloApplication extends Application {
 
 
 
-
-
-
 }
-
-/*@FXML
-private void onLoginButtonClick() throws IOException
-{
-    SceneManager.switchScene("user-view.fxml");
-}*/

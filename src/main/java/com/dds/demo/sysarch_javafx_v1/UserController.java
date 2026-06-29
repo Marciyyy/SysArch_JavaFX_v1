@@ -148,16 +148,8 @@ public class UserController {
                 }
         );
 
-        //Alt:
-        /*
-        //LEDs (Circles) für das aktuelle Stockwerk anzeigen lassen --> siehe method showCurrentFloor
-        state.currentLevelProperty().addListener(
-                (observable, oldLevel, newLevel) ->
-                        showCurrentFloor(newLevel.intValue())
-        );
-         */
+
         showCurrentFloor(state.currentLevelProperty().get());
-        //Neu:
         resetArrivedFloorButtons();
 
         //Next Floor anzeigen lassen (Integer):
@@ -172,25 +164,6 @@ public class UserController {
                 HelloApplication.getHmiState()
                         .directionProperty()
         );
-
-        //Door state anzeigen: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //Geht so nicht!!!! --> Eigene logik einbauen.
-        // Wenn state: door open(true) = open
-        //Wenn state: door closed(true) = closed
-        //Wenn beide OPC Variable false, dann last state merken und dann dementsprechen entweder opening oder closing
-        //--> Last state = open --> closing
-        // Last state = closed --> opening
-        /*
-        UserStatusDoorLabel.textProperty().bind(
-                HelloApplication.getHmiState()
-                        .directionProperty()
-        );
-        */
-
-        //Speed anzeige: Keine OPC Variable bisher !!!!!!!!!!!!!!!!!!!!!!
-        /*
-
-         */
 
         //Motor state:
 
@@ -251,33 +224,6 @@ public class UserController {
         );
 
 
-        //Hillfe um allgemien verschiedene dinge anzeigen lassen:
-        /*
-        currentFloorLabel.textProperty().bind(
-        HelloApplication.getHmiState()
-                .currentLevelProperty()
-                .asString()
-        );
-
-
-        elevatorStateLabel.textProperty().bind(
-        HelloApplication.getHmiState()
-                .elevatorStateProperty()
-        );
-
-        doorOpenLabel.textProperty().bind(
-        HelloApplication.getHmiState()
-                .doorOpenProperty()
-                .asString()
-        );
-
-         */
-
-
-
-
-
-
     }
 
     public void DoorAnimationAndLastState(int i)
@@ -311,8 +257,6 @@ public class UserController {
         UserStockLED2.setFill(javafx.scene.paint.Color.BLUE);
         UserStockLED3.setFill(javafx.scene.paint.Color.BLUE);
         UserStockLED4.setFill(javafx.scene.paint.Color.BLUE);
-
-
 
 
         // Den Kreis des aktuellen Stockwerks grün setzen, wenn current Level passt
@@ -354,6 +298,7 @@ public class UserController {
         pause.play();
     }
 
+    //Rücksetzten der farblichen Button Visualisierung, dass Buttons einen call ausgelöst haben, sobald der Aufzug auf dem jeweiligen Stockwerk ankommt
     private void resetArrivedFloorButtons() {
         int currentFloor = HelloApplication.getHmiState().currentLevelProperty().get();
 
@@ -404,8 +349,8 @@ public class UserController {
     }
 
 
-    //DIe folgenden Zwei funktionen sorgen dafür, dass wenn man mit der Maus übeer einen Button fährt/hover, sich dessen farbe anpasst
-    //Die farbe wird dann dement sprechend angepasst, ob der button gedrückt wurde oder nicht
+    //DIe folgenden Zwei funktionen sorgen dafür, dass wenn man mit der Maus über einen Button fährt/hover, sich dessen farbe anpasst
+    //Die farbe wird dann dementsprechend angepasst, ob der button gedrückt wurde oder nicht
     @FXML
     private void UserCallAndCabinButtonsHoverOn(MouseEvent event)
     {
@@ -440,8 +385,6 @@ public class UserController {
             button.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
         }
 
-
-        //UserCabinStock3.setStyle("-fx-background-color: #f4f4f4;" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
     }
 
 

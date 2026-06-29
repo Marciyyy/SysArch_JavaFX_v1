@@ -119,35 +119,35 @@ public class SupervisorController
         );
         showCurrentFloor(state.currentLevelProperty().get());
 
-
-        //Speed und Door state hinschreiben!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+        //Elevator Speed anzeige:
         SupervisorStatusSpeedLabel.textProperty().bind(
                 HelloApplication.getHmiState()
                         .mbSpeedProperty()
                         .asString()
         );
 
-        //Motor state:
+        //Motor state anzeige:
         SupervisorStatusMotorState.textProperty().bind(
                 HelloApplication.getHmiState()
                         .motorReadyProperty()
                         .asString()
         );
 
-        //PLC Cycle anzeige:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //PLC Cycle anzeige:
         SupervisorStatusPLC.textProperty().bind(
                 HelloApplication.getHmiState()
                         .mbCyclesProperty()
                         .asString()
         );
 
+        //Elevator ID Anzeige:
         SupervisorStatusElevatorID.textProperty().bind(
                 HelloApplication.getHmiState()
                         .mbAufzugIdProperty()
                         .asString()
         );
 
+        //Elevator State anzeige (Finite State Machine):
         SupervisorStatusElevatorState.textProperty().bind(
                 HelloApplication.getHmiState()
                         .elevatorStateProperty()
@@ -200,7 +200,7 @@ public class SupervisorController
 
 
 
-        //Die Speed buttons setzten die OPC variablen auf true wenn gedrückt (setOnMousePressed) und auf false wenn losgelassen wird (setOnMouseReleased)
+        //Die Speed buttons setzten die OPC variablen auf true, wenn gedrückt (setOnMousePressed) und auf false, sobald losgelassen wird (setOnMouseReleased)
         bindHoldButton(SupervisorUp_v1, nodes.supervisorV1Up);
         bindHoldButton(SupervisorDown_v1, nodes.supervisorV1Down);
 
@@ -214,6 +214,7 @@ public class SupervisorController
 
     }
 
+    //Hilfsfunktion für die Door State anzeige und die Door Animation
     public void DoorAnimationAndLastState(int i)
     {
         if(i ==1)
@@ -240,6 +241,7 @@ public class SupervisorController
     }
 
 
+    //Current Floor LED anzeige. LED wird grün, sobald current floor auf dem floor der LED ist
     private void showCurrentFloor(int currentLevel) {
         // Zuerst alle Kreise blau setzen.
         SupervisorStockLED1.setFill(javafx.scene.paint.Color.BLUE);
@@ -250,7 +252,6 @@ public class SupervisorController
 
 
         // Den Kreis des aktuellen Stockwerks grün setzen, wenn current Level passt
-
             switch (currentLevel)
             {
                 case 1 -> SupervisorStockLED1.setFill(javafx.scene.paint.Color.GREEN);
@@ -309,7 +310,7 @@ public class SupervisorController
 
 
 
-    //Hilfs funktion für die V1, V2 Buttons
+    //Hilfs funktion für die V1, V2 Buttons (gedrückt halten und wieder loslassen sette/resettet OPC variablen)
     private void bindHoldButton(@NonNull Button button, NodeId nodeId)
     {
         button.setOnMousePressed(event ->
@@ -374,124 +375,6 @@ public class SupervisorController
 
         });
     }
-
-
-
-
-
-
-
-
-
-
-
-    //Unnütz weils darum geht das die buttons gedrückt bleiben und nicht nur einmal gedrückt werden:
-    /*
-
-    @FXML
-    private void SupervisorUp_v1_Clicked() throws IOException
-    {
-        logger.info("Supervisor Up V1 Button clicked");
-
-
-        HelloApplication.getOpcUaService().write(nodes.supervisorV1Up, true).thenRun(() ->
-                        logger.info("Supervisor V1 Up signal sent succesfully"))
-                .exceptionally(error -> {
-                    logger.error("Sending the Supervisor V1 Up signal failed");
-                    return null;
-                });
-
-    }
-
-    @FXML
-    private void SupervisorUp_v2_Clicked() throws IOException
-    {
-        logger.info("Supervisor Up V2 Button clicked");
-
-        try {
-            HelloApplication.getOpcUaService()
-                    .write(nodes.supervisorV2Up, true)
-                    .exceptionally(error -> {
-                        error.printStackTrace();
-                        return null;
-                    });
-            logger.info("Supervisor V2 Up signal sent succesfully");
-        } catch (Exception exception) {
-            logger.error("Sending the Supervisor V2 Up signal failed", exception);
-        }
-
-    }
-
-    @FXML
-    private void SupervisorUp_Crawl_Clicked() throws IOException
-    {
-        logger.info("Supervisor Up Crawl Button clicked");
-
-        Integer crawlValue = SupervisorComboBoxUp.getValue();
-
-        if (crawlValue == null)
-        {
-            SupervisorCrawlLabel.setVisible(true);
-            return;
-        }
-        SupervisorCrawlLabel.setVisible(false);
-
-        HelloApplication.getOpcUaService().write(nodes.supervisorCrawl, crawlValue).thenRun(() ->
-                        logger.info("Supervisor Up Crawl signal sent with speed {}", crawlValue))
-                .exceptionally(error -> {
-                    logger.error("Sending Supervisor Up Crawl signal with speed {} failed", crawlValue, error);
-                    return null;
-                });
-
-    }
-
-    @FXML
-    private void SupervisorDown_v1_Clicked() throws IOException
-    {
-        logger.info("Supervisor Down V1 Button clicked");
-
-        try {
-            HelloApplication.getOpcUaService()
-                    .write(nodes.supervisorV1Down, true)
-                    .exceptionally(error -> {
-                        error.printStackTrace();
-                        return null;
-                    });
-            logger.info("Supervisor V1 Down signal sent succesfully");
-        } catch (Exception exception) {
-            logger.error("Sending the Supervisor V1 Down signal failed", exception);
-        }
-
-    }
-
-    @FXML
-    private void SupervisorDown_v2_Clicked() throws IOException
-    {
-        logger.info("Supervisor Down V2 Button clicked");
-
-        try {
-            HelloApplication.getOpcUaService()
-                    .write(nodes.supervisorV2Down, true)
-                    .exceptionally(error -> {
-                        error.printStackTrace();
-                        return null;
-                    });
-            logger.info("Supervisor V2 Down signal sent succesfully");
-        } catch (Exception exception) {
-            logger.error("Sending the Supervisor V2 Down signal failed", exception);
-        }
-
-    }
-
-    @FXML
-    private void SupervisorDown_Crawl_Clicked() throws IOException
-    {
-        SupervisorCrawlLabel.setVisible(true);
-        logger.info("Supervisor Down Crawl Button clicked");
-
-    }
-
-     */
 
 
 
