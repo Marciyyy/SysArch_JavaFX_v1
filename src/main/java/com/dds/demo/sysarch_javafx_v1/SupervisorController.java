@@ -36,6 +36,10 @@ public class SupervisorController
     private AnchorPane SupervisorDoor2Open;
     @FXML
     private AnchorPane SupervisorDoor2Close;
+    @FXML
+    private Button SupervisorCabinOpen;
+    @FXML
+    private Button SupervisorCabinClose;
     //endregion
 
     //region Motor Elements
@@ -374,6 +378,97 @@ public class SupervisorController
 
 
         });
+    }
+
+
+    @FXML
+    private void SupervisorCabinCloseClick () throws IOException
+    {
+        logger.info("SupervisorCabinClose Button clicked");
+        boolean doorOpen = HelloApplication.getHmiState().doorOpenProperty().get();
+
+        boolean doorClosed = HelloApplication.getHmiState().doorClosedProperty().get();
+
+        int currentSpeed = HelloApplication.getHmiState().mbSpeedProperty().get();
+
+        //Speed auslesen!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        if(doorClosed && (currentSpeed == 0) )
+        {
+            logger.info("Door couldn't be closed because it's already closed");
+            return;
+        }
+
+        if(!doorOpen && !doorClosed && (currentSpeed == 0) )
+        {
+            if(lastDoorstate == 1)
+            {
+                logger.info("Door is already currently closing");
+                return;
+            }
+            else if (lastDoorstate == 2)
+            {
+                logger.info("Door couldn't be opend because it's currently opening");
+                return;
+            }
+        }
+
+        if( (currentSpeed == 0) && (doorOpen == true) )
+        {
+            HelloApplication.getOpcUaService().write(nodes.closeDoor, true).thenRun(() ->
+                            logger.info("Close Door signal send via OPC UA"))
+                    .exceptionally(error -> {
+                        logger.error("Close Door signal couldn't be send");
+                        return null;
+                    });
+        }
+
+
+    }
+
+    @FXML
+    private void SupervisorCabinOpenClick () throws IOException
+    {
+        logger.info("SupervisorCabinOpen Button clicked");
+        boolean doorOpen = HelloApplication.getHmiState().doorOpenProperty().get();
+
+        boolean doorClosed = HelloApplication.getHmiState().doorClosedProperty().get();
+
+        int currentSpeed = HelloApplication.getHmiState().mbSpeedProperty().get();
+
+        //Speed auslesen!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //Schauen ob türe breits offen ist
+        if(doorOpen && (currentSpeed == 0) )
+        {
+            logger.info("Door couldn't be opend because it's already open");
+            return;
+        }
+        //Checken ob sich die tür aktuell öffnet oder schliest:
+        if(!doorOpen && !doorClosed)
+        {
+            if(lastDoorstate == 1)
+            {
+                logger.info("Door couldn't be opend because it's currently closing");
+                return;
+            }
+            else if (lastDoorstate == 2)
+            {
+                logger.info("Door is already currently opening");
+                return;
+            }
+        }
+
+        if( (currentSpeed == 0) && (doorClosed == true) )
+        {
+
+            HelloApplication.getOpcUaService().write(nodes.openDoor, true).thenRun(() ->
+                            logger.info("Open door signal has been send successfully"))
+                    .exceptionally(error -> {
+                        logger.error("Open Door signal couldn't be send");
+                        return null;
+                    });
+        }
+
     }
 
 

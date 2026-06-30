@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64ec3baa-f9d4-4c57-b88f-44f907b778e4" name="Changes" comment="Fixed current level LEDs">
+    <list default="true" id="64ec3baa-f9d4-4c57-b88f-44f907b778e4" name="Changes" comment="Smaller adjustments (comments)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/interaction.jsonl" beforeDir="false" afterPath="$PROJECT_DIR$/logs/interaction.jsonl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dds/demo/sysarch_javafx_v1/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dds/demo/sysarch_javafx_v1/HelloApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/dds/demo/sysarch_javafx_v1/SupervisorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dds/demo/sysarch_javafx_v1/SupervisorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dds/demo/sysarch_javafx_v1/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dds/demo/sysarch_javafx_v1/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/dds/demo/sysarch_javafx_v1/Supervisor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/dds/demo/sysarch_javafx_v1/Supervisor.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,12 +29,12 @@
     &quot;assignee&quot;: &quot;Marciyyy&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Marciyyy/SysArch_JavaFX_v1.git",
-    "accountId": "2492e366-4731-4947-b87d-c5ff36e6110c"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Marciyyy/SysArch_JavaFX_v1.git&quot;,
+    &quot;accountId&quot;: &quot;2492e366-4731-4947-b87d-c5ff36e6110c&quot;
   }
-}]]></component>
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -51,25 +50,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "MitOpcClient3",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Admin/IdeaProjects/SysArch_JavaFX_v1/pom.xml",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;MitOpcClient3&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Admin/IdeaProjects/SysArch_JavaFX_v1/pom.xml&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -87,7 +86,8 @@
       <option name="presentableId" value="Default" />
       <updated>1782723959577</updated>
       <workItem from="1782723961270" duration="4959000" />
-      <workItem from="1782740660350" duration="12994000" />
+      <workItem from="1782740660350" duration="13070000" />
+      <workItem from="1782759699990" duration="1817000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed current level LEDs">
       <option name="closed" value="true" />
@@ -129,7 +129,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782749068580</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Smaller adjustments (comments)">
+      <option name="closed" value="true" />
+      <created>1782758262825</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1782758262825</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -137,6 +145,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fixed current level LEDs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed current level LEDs" />
+    <MESSAGE value="Smaller adjustments (comments)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Smaller adjustments (comments)" />
   </component>
 </project>

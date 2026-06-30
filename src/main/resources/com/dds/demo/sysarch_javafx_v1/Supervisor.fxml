@@ -184,5 +184,7 @@
             </Label>
          </children>
       </AnchorPane>
+      <Button fx:id="SupervisorCabinOpen" layoutX="492.0" layoutY="427.0" mnemonicParsing="false" onAction="#SupervisorCabinOpenClick" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="&lt;|&gt;" />
+      <Button fx:id="SupervisorCabinClose" layoutX="540.0" layoutY="427.0" mnemonicParsing="false" onAction="#SupervisorCabinCloseClick" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1.5;" text="&gt;|&lt;" />
    </children>
 </AnchorPane>
