@@ -646,6 +646,8 @@ public class UserController {
             return;
         }
 
+
+
         //Wenn aufzug entweeder nicht auf dem stock ist oder zwar noch der stock angezeigt wird aber er sich schon wieder bewegt:
         if( (currentFloor != FloorLevel) || ( (currentFloor == FloorLevel) && (currentSpeed != 0) ) )
         {
@@ -715,7 +717,7 @@ public class UserController {
 
 
 
-
+    /*
         //Wenn aufzug gerade an diesem stockwerk steht, dann nix machen:
         if ( (currentFloor == FloorLevel) && (currentSpeed == 0) )
         {
@@ -723,9 +725,11 @@ public class UserController {
             return;
         }
 
+     */
+
         //Wenn aufzug entweeder nicht auf dem stock ist oder zwar noch der stock angezeigt wird aber er sich shcon wieder bewegt:
-        if( (currentFloor != FloorLevel) || ( (currentFloor == FloorLevel) && (currentSpeed != 0) ) )
-        {
+       // if( (currentFloor != FloorLevel) || ( (currentFloor == FloorLevel) && (currentSpeed != 0) ) )
+        //{
             //Richtige Variable setzten:
             switch (UpDown)
             {
@@ -737,8 +741,11 @@ public class UserController {
                                     logger.error("Outside request for Level 1 Up failed");
                                     return null;
                                 });
-                        UserCall1.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
-                        removeFocusAfterOneSecond(UserCall1);
+                        if(currentFloor != 1)
+                        {
+                            UserCall1.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                        }
+                            removeFocusAfterOneSecond(UserCall1);
 
                 }
                 case 2 ->
@@ -749,7 +756,10 @@ public class UserController {
                                 logger.error("Outside request for Level 2 Up failed");
                                 return null;
                             });
-                    UserCall2Up.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                    if(currentFloor != 2)
+                    {
+                        UserCall2Up.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                    }
 
                     removeFocusAfterOneSecond(UserCall2Up);
                 }
@@ -762,7 +772,10 @@ public class UserController {
                                 logger.error("Outside request for Level 2 Down failed");
                                 return null;
                             });
-                    UserCall2Down.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                    if(currentFloor != 2)
+                    {
+                        UserCall2Down.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                    }
                     removeFocusAfterOneSecond(UserCall2Down);
                 }
                 case 4 ->
@@ -773,7 +786,10 @@ public class UserController {
                                 logger.error("Outside request for Level 3 Up failed");
                                 return null;
                             });
-                    UserCall3Up.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                    if(currentFloor != 3)
+                    {
+                        UserCall3Up.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                    }
                     removeFocusAfterOneSecond(UserCall3Up);
 
                 }
@@ -785,7 +801,10 @@ public class UserController {
                                 logger.error("Outside request for Level 3 Down failed");
                                 return null;
                             });
-                    UserCall3Down.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                    if(currentFloor != 3)
+                    {
+                        UserCall3Down.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                    }
                     removeFocusAfterOneSecond(UserCall3Down);
                 }
                 case 6 ->
@@ -796,14 +815,17 @@ public class UserController {
                                 logger.error("Outside request for Level 4 Down failed");
                                 return null;
                             });
-                    UserCall4.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                    if(currentFloor != 4)
+                    {
+                        UserCall4.setStyle("-fx-background-color: rgba(255, 165, 0, 0.3);" + "-fx-border-color: black;" + "-fx-border-width: 1.5;" + "-fx-border-radius: 5;" + "-fx-background-radius: 5");
+                    }
                     removeFocusAfterOneSecond(UserCall4);
                 }
 
             }
 
 
-        }
+       // }
 
     }
 

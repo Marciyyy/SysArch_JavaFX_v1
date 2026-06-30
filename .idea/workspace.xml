@@ -7,8 +7,10 @@
     <list default="true" id="64ec3baa-f9d4-4c57-b88f-44f907b778e4" name="Changes" comment="Smaller adjustments (comments)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/interaction.jsonl" beforeDir="false" afterPath="$PROJECT_DIR$/logs/interaction.jsonl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dds/demo/sysarch_javafx_v1/SupervisorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dds/demo/sysarch_javafx_v1/SupervisorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dds/demo/sysarch_javafx_v1/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dds/demo/sysarch_javafx_v1/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/dds/demo/sysarch_javafx_v1/LogIn.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/dds/demo/sysarch_javafx_v1/LogIn.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/dds/demo/sysarch_javafx_v1/Supervisor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/dds/demo/sysarch_javafx_v1/Supervisor.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/dds/demo/sysarch_javafx_v1/User.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/dds/demo/sysarch_javafx_v1/User.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,12 +31,12 @@
     &quot;assignee&quot;: &quot;Marciyyy&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Marciyyy/SysArch_JavaFX_v1.git&quot;,
-    &quot;accountId&quot;: &quot;2492e366-4731-4947-b87d-c5ff36e6110c&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Marciyyy/SysArch_JavaFX_v1.git",
+    "accountId": "0bb64f63-00b8-44f0-b956-c29896906de6"
   }
-}</component>
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -72,8 +74,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
-        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
       </set>
     </attachedChunks>
   </component>
@@ -88,6 +90,7 @@
       <workItem from="1782723961270" duration="4959000" />
       <workItem from="1782740660350" duration="13070000" />
       <workItem from="1782759699990" duration="1817000" />
+      <workItem from="1782813059576" duration="5010000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed current level LEDs">
       <option name="closed" value="true" />
@@ -143,9 +146,20 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed current level LEDs" />
     <MESSAGE value="Smaller adjustments (comments)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Smaller adjustments (comments)" />
+    <MESSAGE value="Fixed current level LEDs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed current level LEDs" />
   </component>
 </project>

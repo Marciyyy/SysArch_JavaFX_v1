@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="616.0" prefWidth="887.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dds.demo.sysarch_javafx_v1.UserController">
+<AnchorPane prefHeight="616.0" prefWidth="887.0" xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dds.demo.sysarch_javafx_v1.UserController">
    <children>
       <Button fx:id="UserReturnToLogInButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#UserReturnToLoginButtonClick" text="Return to LogIn" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
       <AnchorPane layoutX="42.6" layoutY="76.8" prefHeight="316.0" prefWidth="272.0" style="-fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: white;" AnchorPane.leftAnchor="42.6" AnchorPane.topAnchor="76.8">

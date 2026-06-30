@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="616.0" prefWidth="887.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dds.demo.sysarch_javafx_v1.SupervisorController">
+<AnchorPane prefHeight="616.0" prefWidth="887.0" xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dds.demo.sysarch_javafx_v1.SupervisorController">
    <children>
       <Button fx:id="SupLogInButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#SupLogInButtonClick" text="Return to LogIn" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
       <AnchorPane layoutX="691.0" layoutY="476.0" prefHeight="114.0" prefWidth="151.0" style="-fx-border-color: black; -fx-border-width: 0.1;">
